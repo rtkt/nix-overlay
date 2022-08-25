@@ -1,0 +1,7 @@
+self: super:
+{
+  ntfy-full = super.callPackage ./ntfy-full.nix {
+    lib = super.lib;
+    
+  };
+}
