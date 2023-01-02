@@ -2,19 +2,18 @@
   description = "Flakiefied collection of Nix overlays";
 
   inputs = {
-    nixpkgs.url = "flake:nixpkgs/nixos-unstable";
-    lib-aggregate.url = "github:nix-community/lib-aggregate";
+    nixpkgs = {url = "flake:nixpkgs/nixos-unstable";};
+    lib-aggregate = {url = "github:nix-community/lib-aggregate";};
   };
   outputs = inputs: let
     inherit (inputs.lib-aggregate) lib;
     inherit (inputs) self;
+
     ownOverlay = (
       final: prev: let
         ownPkgs = rec {
-          ntfy-full = prev.callPackage ./ntfy-full;
-          ntfy-webapp = prev.callPackage ./ntfy-webapp;
           samba-for-ps2 = prev.callPackage ./samba-for-ps2;
-          tcpflow = prev.callPackage ./tcpflow;
+          # tcpflow = prev.callPackage ./tcpflow;
         };
       in (ownPkgs // {inherit ownPkgs;})
     );
@@ -32,7 +31,7 @@
         ownpkgs = (opkgs_ [self.overlays.default]).nixpkgs;
       in {
         devShells.default = pkgs_.nixpkgs.mkShell {
-          buildInputs =
+          nativeBuildInputs =
             []
             ++ (with pkgs_.nixpkgs; [
               openssl
@@ -64,7 +63,9 @@
         packages = (
           ownpkgs.ownPkgs
           // {
-            default = ownpkgs;
+            default =
+              ownpkgs.linkFarmFromDrvs "nixpkgs-own-overlay"
+              (builtins.attValues ownpkgs.ownPkgs);
           }
         );
       }
