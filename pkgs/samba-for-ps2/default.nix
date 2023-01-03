@@ -14,7 +14,7 @@
   docbook_xml_dtd_45,
   readline,
   popt,
-  dbus,
+  # dbus,
   libbsd,
   # libarchive,
   zlib,
@@ -105,7 +105,7 @@ with lib;
       python3Packages.python
       readline
       popt
-      dbus
+      # dbus
       jansson
       libbsd
       # libarchive
@@ -136,7 +136,7 @@ with lib;
 
     wafConfigureFlags = [
       "--with-static-modules=NONE"
-      "--with-shared-modules=ALL"
+      "--with-shared-modules=!vfs_snapper"
       "--enable-fhs"
       "--sysconfdir=/etc"
       "--localstatedir=/var"
