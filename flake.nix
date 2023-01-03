@@ -20,6 +20,7 @@
   in {
     overlays.default = final: prev: rec {
       samba-for-ps2 = final.callPackage ./pkgs/samba-for-ps2 {};
+      tcpflow = final.callPackage ./pkgs/tcpflow {};
     };
     packages.x86_64-linux = pkgs;
   };
