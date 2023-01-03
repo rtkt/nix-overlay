@@ -1,39 +1,5 @@
 {
   "nodes": {
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "lib-aggregate": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs-lib": "nixpkgs-lib"
-      },
-      "locked": {
-        "lastModified": 1663503058,
-        "narHash": "sha256-wagaFmv4qvsMO9A4kqGgfxsaRu71IecB9oKjDMss8u0=",
-        "owner": "nix-community",
-        "repo": "lib-aggregate",
-        "rev": "05a081a254f4bc7ca026a6ebdcf9864170208bc3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "lib-aggregate",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1663850217,
@@ -49,24 +15,8 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1663463003,
-        "narHash": "sha256-X2k3WagXicaNiBswEJz3PqznEtovp1fKbuAMUMOHzeg=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "30286fa7fb374fa3ffc80ac35eb7fadf572ae357",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "lib-aggregate": "lib-aggregate",
         "nixpkgs": "nixpkgs"
       }
     }
