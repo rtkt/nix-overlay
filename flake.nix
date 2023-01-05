@@ -2,7 +2,6 @@
   description = "rtkt's overlay";
   inputs = {
     nixpkgs.url = "flake:nixpkgs/nixos-unstable";
-    # lib-aggregate.url = "github:nix-community/lib-aggregate";};
   };
 
   outputs = {
@@ -23,11 +22,9 @@
       tcpflow = final.callPackage ./pkgs/tcpflow {};
 
       tor-browser-bundle-bin = prev.tor-browser-bundle-bin.overrideAttrs (finalAttrs: previousAttrs: {
-        version = "11.5.2";
-        lang = "en-US";
         src = prev.fetchurl {
-          url = "https://tor.calyxinstitute.org/dist/torbrowser/11.5.2/tor-browser-linux64-11.5.2_en-US.tar.xz";
-          sha256 = "sha256-kM3OOFTpEU7nIyqqdGcqLZ86QLb6isM5cfWG7jo891o=";
+          url = "https://tor.calyxinstitute.org/dist/torbrowser/11.5.8/tor-browser-linux64-11.5.8_en-US.tar.xz";
+          sha256 = "sha256-/KK9oTijk5dEziAwp5966NaM2V4k1mtBjTJq88Ct7N0=";
         };
       });
     };
