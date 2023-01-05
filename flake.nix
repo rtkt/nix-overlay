@@ -27,6 +27,16 @@
           sha256 = "sha256-/KK9oTijk5dEziAwp5966NaM2V4k1mtBjTJq88Ct7N0=";
         };
       });
+      google-authenticator =
+       (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
+         preConfigure = null;
+       }))
+       .override {
+         qrencode = null;
+       };
+      gnupg-minimal = prev.gnupg.override {
+        enableMinimal = true;
+      };
     };
     packages.x86_64-linux = pkgs;
   };
