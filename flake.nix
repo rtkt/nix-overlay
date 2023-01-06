@@ -18,10 +18,6 @@
     };
   in {
     overlays.default = final: prev: rec {
-      imports = [
-        ./modules/n8n
-      ];
-
       samba-for-ps2 = final.callPackage ./pkgs/samba-for-ps2 {};
       tcpflow = final.callPackage ./pkgs/tcpflow {};
 
