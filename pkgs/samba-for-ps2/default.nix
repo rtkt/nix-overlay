@@ -12,13 +12,10 @@
   docbook_xsl,
   docbook_xml_dtd_45,
   popt,
-  # libbsd,
   zlib,
   liburing,
   gnutls,
-  libunwind,
   systemd,
-  # samba,
   libtasn1,
   tdb,
   libxcrypt,
@@ -70,9 +67,7 @@ with lib;
       python3Packages.wrapPython
       python3Packages.python
       popt
-      # libbsd
       zlib
-      libunwind
       gnutls
       libtasn1
       tdb
