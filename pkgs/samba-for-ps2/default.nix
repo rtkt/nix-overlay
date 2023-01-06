@@ -11,7 +11,7 @@
   libxslt,
   docbook_xsl,
   docbook_xml_dtd_45,
-  readline,
+  # readline,
   popt,
   libbsd,
   zlib,
@@ -20,7 +20,7 @@
   libunwind,
   systemd,
   samba,
-  jansson,
+  # jansson,
   libtasn1,
   tdb,
   libxcrypt,
@@ -72,12 +72,10 @@ with lib;
       bash
       python3Packages.wrapPython
       python3Packages.python
-      readline
+      # readline
       popt
-      # dbus
-      jansson
+      # jansson
       libbsd
-      # libarchive
       zlib
       libunwind
       gnutls
