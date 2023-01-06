@@ -11,16 +11,14 @@
   libxslt,
   docbook_xsl,
   docbook_xml_dtd_45,
-  # readline,
   popt,
-  libbsd,
+  # libbsd,
   zlib,
   liburing,
   gnutls,
   libunwind,
   systemd,
-  samba,
-  # jansson,
+  # samba,
   libtasn1,
   tdb,
   libxcrypt,
@@ -29,7 +27,6 @@
   bash,
   python3Packages,
   nixosTests,
-  libiconv,
 }:
 with lib;
   stdenv.mkDerivation rec {
@@ -72,10 +69,8 @@ with lib;
       bash
       python3Packages.wrapPython
       python3Packages.python
-      # readline
       popt
-      # jansson
-      libbsd
+      # libbsd
       zlib
       libunwind
       gnutls
