@@ -20,6 +20,7 @@
     overlays.default = final: prev: rec {
       samba-for-ps2 = final.callPackage ./pkgs/samba-for-ps2 {};
       tcpflow = final.callPackage ./pkgs/tcpflow {};
+      n8n = final.callPackages ./pkgs/n8n {};
 
       tor-browser-bundle-bin = prev.tor-browser-bundle-bin.overrideAttrs (finalAttrs: previousAttrs: {
         src = prev.fetchurl {
