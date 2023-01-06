@@ -17,7 +17,6 @@
   gnutls,
   systemd,
   libtasn1,
-  tdb,
   cmocka,
   rpcsvc-proto,
   bash,
@@ -69,7 +68,6 @@ with lib;
       zlib
       gnutls
       libtasn1
-      tdb
     ];
 
     wafPath = "buildtools/bin/waf";
@@ -91,7 +89,8 @@ with lib;
 
     wafConfigureFlags = [
       "--with-static-modules=NONE"
-      "--with-shared-modules=!vfs_snapper"
+      "--with-shared-modules=!DEFAULT"
+      "--bundled-libraries=ALL"
       "--enable-fhs"
       "--sysconfdir=/etc"
       "--localstatedir=/var"
@@ -122,7 +121,6 @@ with lib;
       "--without-libarchive"
       "--disable-glusterfs"
       "--disable-cephfs"
-      "--without-acl-support"
       "--disable-python"
       "--without-utmp"
       "--without-iconv"
@@ -138,7 +136,7 @@ with lib;
     # module, which works correctly in all cases.
     PYTHON_CONFIG = "/invalid";
 
-    pythonPath = [python3Packages.dnspython tdb];
+    pythonPath = [python3Packages.dnspython];
 
     preBuild = ''
       export MAKEFLAGS="-j $NIX_BUILD_CORES"
