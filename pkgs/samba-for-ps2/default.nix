@@ -18,7 +18,6 @@
   systemd,
   libtasn1,
   tdb,
-  libxcrypt,
   cmocka,
   rpcsvc-proto,
   bash,
@@ -71,7 +70,6 @@ with lib;
       gnutls
       libtasn1
       tdb
-      libxcrypt
     ];
 
     wafPath = "buildtools/bin/waf";
