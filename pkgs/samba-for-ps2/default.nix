@@ -17,7 +17,6 @@
   gnutls,
   systemd,
   libtasn1,
-  cmocka,
   rpcsvc-proto,
   bash,
   python3Packages,
@@ -56,7 +55,6 @@ with lib;
       buildPackages.stdenv.cc
       docbook_xsl
       docbook_xml_dtd_45
-      cmocka
       rpcsvc-proto
     ];
 
@@ -136,7 +134,7 @@ with lib;
     # module, which works correctly in all cases.
     PYTHON_CONFIG = "/invalid";
 
-    pythonPath = [python3Packages.dnspython];
+    pythonPath = [];
 
     preBuild = ''
       export MAKEFLAGS="-j $NIX_BUILD_CORES"
