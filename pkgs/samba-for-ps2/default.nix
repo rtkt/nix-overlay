@@ -16,7 +16,6 @@
   liburing,
   gnutls,
   systemd,
-  libtasn1,
   rpcsvc-proto,
   bash,
   python3Packages,
@@ -65,7 +64,6 @@ with lib;
       popt
       zlib
       gnutls
-      libtasn1
     ];
 
     wafPath = "buildtools/bin/waf";
