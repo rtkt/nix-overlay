@@ -16,7 +16,6 @@
   gnutls,
   systemd,
   rpcsvc-proto,
-  bash,
   python3Packages,
   nixosTests,
 }:
@@ -57,7 +56,6 @@ with lib;
     ];
 
     buildInputs = [
-      bash
       python3Packages.wrapPython
       python3Packages.python
       zlib
