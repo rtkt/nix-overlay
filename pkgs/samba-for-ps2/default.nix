@@ -11,7 +11,6 @@
   libxslt,
   docbook_xsl,
   docbook_xml_dtd_45,
-  popt,
   zlib,
   liburing,
   gnutls,
@@ -61,7 +60,6 @@ with lib;
       bash
       python3Packages.wrapPython
       python3Packages.python
-      popt
       zlib
       gnutls
     ];
