@@ -29,12 +29,12 @@
         };
       });
       google-authenticator =
-       (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
-         preConfigure = null;
-       }))
-       .override {
-         qrencode = null;
-       };
+        (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
+          preConfigure = null;
+        }))
+        .override {
+          qrencode = null;
+        };
       gnupg-minimal = prev.gnupg.override {
         enableMinimal = true;
       };
