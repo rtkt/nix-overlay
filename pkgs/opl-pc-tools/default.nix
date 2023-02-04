@@ -5,6 +5,7 @@
   cmake,
   autoreconfHook,
   libsForQt5,
+  libglvnd,
 }:
 stdenv.mkDerivation rec {
   pname = "opl-pc-tools";
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake autoreconfHook];
-  buildInputs = with libsForQt5.qt5; [qtbase qttranslations];
+  buildInputs = with libsForQt5.qt5; [qtbase qttranslations libglvnd];
 
   cmakeFlags = ["-DMARCH=x86_64"];
 }
