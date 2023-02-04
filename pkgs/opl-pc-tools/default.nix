@@ -5,6 +5,8 @@
   cmake,
   libsForQt5,
   libglvnd,
+  libxkbcommon,
+  libxcb,
 }:
 stdenv.mkDerivation rec {
   pname = "opl-pc-tools";
@@ -22,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake];
-  buildInputs = with libsForQt5.qt5; [qtbase qttranslations libglvnd];
+  buildInputs = with libsForQt5.qt5; [qtbase qttranslations libglvnd libxkbcommon libxcb];
 
   cmakeFlags = ["-DMARCH=x86_64"];
 }
