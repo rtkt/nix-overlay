@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   cmake,
-  libsForQt5,
+  qt5,
   libglvnd,
   libxkbcommon,
   libxcb,
@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     ./0001-Renamed-QT5_DIR-to-Qt5_DIR.patch
   ];
 
-  nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake];
-  buildInputs = with libsForQt5.qt5; [qtbase qttranslations libglvnd libxkbcommon libxcb];
+  nativeBuildInputs = [qt5.wrapQtAppsHook cmake];
+  buildInputs = [qt5.qtbase qt5.qttranslations libglvnd libxcb libxkbcommon];
 
-  cmakeFlags = ["-DMARCH=x86_64"];
+  NIX_LDFLAGS = "-rpath ${lib.makeLibraryPath buildInputs}";
 }
