@@ -13,9 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "brainstream";
     repo = "OPL-PC-Tools";
-    rev = "v3.0";
-    sha256 = "0vbm097jhi5n8pg08ia1yhzc225zv9948blb76f4br739l9l22vq";
-    fetchSubmodules = true;
+    rev = "edf4e72ffdf2d67895b682638215bd5db0b31e40";
+    sha256 = lib.fakeSha256;
   };
 
   nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake autoreconfHook];
