@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
   cmake,
-  autoreconfHook,
   libsForQt5,
   libglvnd,
 }:
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DCdmlyzta2gmqmXjV5NuQj5BgimifBFKIU7rk1OS4pw=";
   };
 
-  nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake autoreconfHook];
+  nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake];
   buildInputs = with libsForQt5.qt5; [qtbase qttranslations libglvnd];
 
   cmakeFlags = ["-DMARCH=x86_64"];
