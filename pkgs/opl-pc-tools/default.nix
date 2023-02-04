@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake autoreconfHook];
-  buildInputs = [libsForQt5.qt5.qtbase];
+  buildInputs = with libsForQt5.qt5; [qtbase qttranslations];
 
   cmakeFlags = ["-DMARCH=x86_64"];
 }
