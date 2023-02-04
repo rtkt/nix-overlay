@@ -5,6 +5,7 @@
   cmake,
   autoreconfHook,
   libsForQt5,
+  python2,
 }:
 stdenv.mkDerivation rec {
   pname = "opl-pc-tools";
@@ -18,5 +19,5 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [libsForQt5.wrapQtAppsHook cmake autoreconfHook];
-  buildInputs = [libsForQt5.qt5.qtbase];
+  buildInputs = [libsForQt5.qt5.qtbase python2];
 }
