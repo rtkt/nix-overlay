@@ -41,6 +41,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons/hicolor/256x256/apps
     cp ../src/OplPcTools/Resources/images/application.png $out/share/icons/hicolor/256x256/apps/oplpctools.png
     runHook postInstall
+    mkdir -p $out/share/applications
+    cp ${desktopItem} $out/share/applications/
   '';
 
   desktopItem = makeDesktopItem {
