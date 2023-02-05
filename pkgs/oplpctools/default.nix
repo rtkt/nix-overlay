@@ -7,7 +7,7 @@
   qt5,
 }:
 stdenv.mkDerivation rec {
-  pname = "opl-pc-tools";
+  pname = "oplpctools";
   version = "3.0";
 
   src = fetchFromGitHub {

@@ -21,7 +21,7 @@
       samba-for-ps2 = final.callPackage ./pkgs/samba-for-ps2 {};
       tcpflow = final.callPackage ./pkgs/tcpflow {};
       n8n = final.callPackage ./pkgs/n8n {};
-      opl-pc-tools = final.libsForQt5.callPackage ./pkgs/opl-pc-tools {};
+      oplpctools = final.libsForQt5.callPackage ./pkgs/oplpctools {};
 
       tor-browser-bundle-bin = prev.tor-browser-bundle-bin.overrideAttrs (finalAttrs: previousAttrs: {
         src = prev.fetchurl {
