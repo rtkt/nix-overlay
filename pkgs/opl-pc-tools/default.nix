@@ -4,19 +4,6 @@
   fetchFromGitHub,
   cmake,
   qt5,
-  # libglvnd,
-  # libxkbcommon,
-  # libxcb,
-  # zlib,
-  # libkrb5,
-  # openssl,
-  # libpng,
-  # harfbuzz,
-  # icu,
-  # pcre2,
-  # zstd,
-  # glib,
-  # xorg,
 }:
 stdenv.mkDerivation rec {
   pname = "opl-pc-tools";
@@ -37,29 +24,5 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qt5.qtbase
     qt5.qttranslations
-    # libglvnd
-    # libxcb
-    # libxkbcommon
-    # zlib
-    # libkrb5
-    # openssl
-    # libpng
-    # harfbuzz
-    # icu
-    # pcre2
-    # zstd
-    # glib
-    # xorg.libX11
   ];
-
-  # preConfigure = "export LC_ALL=C";
-
-  # NIX_LDFLAGS = "-rpath ${lib.makeLibraryPath buildInputs}";
-  # qtWrapperArgs = [
-  # "--prefix LD_LIBRARY_PATH ${lib.makeLibraryPath buildInputs}"
-  # ];
-
-  # cmakeFlags = [
-  #   "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
-  # ];
 }
