@@ -2,6 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
+  makeDesktopItem,
   cmake,
   qt5,
 }:
@@ -25,4 +26,19 @@ stdenv.mkDerivation rec {
     qt5.qtbase
     qt5.qttranslations
   ];
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    cp oplpctools $out/bin
+    cp ./*.qm $out/bin
+    cp ../LICENSE.txt $out
+    mkdir -p $out/images
+    cp ../src/OplPcTools/Resources/images/application.png $out/images/icon.png
+    runHook postInstall
+  '';
+
+  # desktopItem = makeDesktopItem {
+  #   name
+  # };
 }
