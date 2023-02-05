@@ -33,12 +33,16 @@ stdenv.mkDerivation rec {
     cp oplpctools $out/bin
     cp ./*.qm $out/bin
     cp ../LICENSE.txt $out
-    mkdir -p $out/images
-    cp ../src/OplPcTools/Resources/images/application.png $out/images/icon.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    cp ../src/OplPcTools/Resources/images/application.png $out/share/icons/hicolor/256x256/apps/oplpctools.png
     runHook postInstall
   '';
 
-  # desktopItem = makeDesktopItem {
-  #   name
-  # };
+  desktopItem = makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = "OPL PC Tools";
+    categories = ["Game" "Utility"];
+  };
 }
