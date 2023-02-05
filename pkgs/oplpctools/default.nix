@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./0001-Rename-QT5_DIR-to-Qt5_DIR.patch
+    ./0001-Fixed-segfault-when-trying-to-install-game-from-imag.patch
   ];
 
   nativeBuildInputs = [
