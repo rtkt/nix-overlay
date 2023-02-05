@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./0001-Renamed-QT5_DIR-to-Qt5_DIR.patch
+    ./0001-Rename-QT5_DIR-to-Qt5_DIR.patch
   ];
 
   nativeBuildInputs = [qt5.wrapQtAppsHook cmake];
