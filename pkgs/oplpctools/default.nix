@@ -2,6 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
+  copyDesktopItems,
   makeDesktopItem,
   cmake,
   qt5,
@@ -21,7 +22,11 @@ stdenv.mkDerivation rec {
     ./0001-Rename-QT5_DIR-to-Qt5_DIR.patch
   ];
 
-  nativeBuildInputs = [qt5.wrapQtAppsHook cmake];
+  nativeBuildInputs = [
+    qt5.wrapQtAppsHook
+    cmake
+    copyDesktopItems
+  ];
   buildInputs = [
     qt5.qtbase
     qt5.qttranslations
