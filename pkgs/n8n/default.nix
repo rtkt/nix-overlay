@@ -21,10 +21,6 @@ in
 
     # Patch minified source with changes from https://github.com/n8n-io/n8n/pull/5052
     preRebuild =
-      ''
-        patch -p1 -i ${./fix-permissions.diff}
-      ''
-      +
       # Oracle's official package on npm is binary only (WHY?!) and doesn't provide binaries for aarch64.
       # This can supposedly be fixed by building a custom copy of the module from source, but that's way
       # too much complexity for a setup no one would ever actually run.
