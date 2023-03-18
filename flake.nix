@@ -31,6 +31,9 @@
         enableMinimal = true;
       };
     };
+    nixosModules = {
+      samba-for-ps2 = import ./modules/samba-for-ps2;
+    };
 
     packages.${system} = import ./default.nix {
       pkgs = import nixpkgs {
