@@ -9,13 +9,6 @@
     nixpkgs,
   }: let
     system = "x86_64-linux";
-    # pkgs = import nixpkgs {
-    #   inherit system;
-    #   overlays = [
-    #     self.overlays.default
-    #   ];
-    #   config = {allowUnfree = true;};
-    # };
   in {
     overlays.default = final: prev: let
       localPkgs = import ./default.nix {pkgs = final;};
@@ -39,7 +32,7 @@
       };
     };
 
-    packages.x86_64-linux = import ./default.nix {
+    packages.${system} = import ./default.nix {
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
