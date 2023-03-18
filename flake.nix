@@ -32,6 +32,7 @@
       };
     };
     nixosModules = {
+      n8n = import ./modules/n8n;
       ntfy = import ./modules/ntfy;
       samba-for-ps2 = import ./modules/samba-for-ps2;
     };
@@ -39,7 +40,6 @@
     packages.${system} = import ./default.nix {
       pkgs = import nixpkgs {
         inherit system;
-        # config.allowUnfree = true;
       };
     };
     devShells.${system}.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix {};
