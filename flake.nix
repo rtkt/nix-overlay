@@ -35,8 +35,9 @@
     packages.${system} = import ./default.nix {
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        # config.allowUnfree = true;
       };
     };
+    devShells.${system}.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix {};
   };
 }
