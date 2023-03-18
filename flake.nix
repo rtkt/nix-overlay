@@ -32,6 +32,7 @@
       };
     };
     nixosModules = {
+      ntfy = import ./modules/ntfy;
       samba-for-ps2 = import ./modules/samba-for-ps2;
     };
 
