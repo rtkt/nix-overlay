@@ -14,12 +14,6 @@
       localPkgs = import ./default.nix {pkgs = final;};
     in {
       inherit (localPkgs) samba-for-ps2 tcpflow n8n oplpctools;
-      tor-browser-bundle-bin = prev.tor-browser-bundle-bin.overrideAttrs (finalAttrs: previousAttrs: {
-        src = prev.fetchurl {
-          url = "https://tor.calyxinstitute.org/dist/torbrowser/11.5.8/tor-browser-linux64-11.5.8_en-US.tar.xz";
-          sha256 = "sha256-/KK9oTijk5dEziAwp5966NaM2V4k1mtBjTJq88Ct7N0=";
-        };
-      });
       google-authenticator =
         (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
           preConfigure = null;
