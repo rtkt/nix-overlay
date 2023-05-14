@@ -17,6 +17,7 @@ in
 
     buildInputs = [
       pkgs.postgresql
+      pkgs.libmongocrypt
     ];
 
     preRebuild =
@@ -28,6 +29,9 @@ in
       lib.optionalString stdenv.isAarch64 ''
         rm -rf node_modules/oracledb
       '';
+
+    # makes libmongocrypt bindings not look for static libraries in completely wrong places
+    BUILD_TYPE = "dynamic";
 
     dontNpmInstall = true;
 
