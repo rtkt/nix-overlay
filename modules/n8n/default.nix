@@ -23,10 +23,6 @@ in {
         else v);
       description = "Set of configurational environment variables";
     };
-    path = mkOption {
-      type = types.listOf;
-      default = [];
-    };
   };
 
   config = mkIf cfg.enable {
@@ -35,7 +31,7 @@ in {
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
       environment = cfg.settings;
-      path = [ pkgs.nodejs-18_x pkgs.n8n ];
+      path = [pkgs.nodejs-18_x pkgs.n8n];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.n8n}/bin/n8n";
