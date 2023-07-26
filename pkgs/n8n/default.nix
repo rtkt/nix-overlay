@@ -18,6 +18,7 @@ in
     buildInputs = [
       pkgs.postgresql
       pkgs.libmongocrypt
+      pkgs.libkrb5
     ];
 
     preRebuild =
