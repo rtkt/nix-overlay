@@ -24,6 +24,14 @@
       gnupg-minimal = prev.gnupg.override {
         enableMinimal = true;
       };
+      node2nix = prev.node2nix.overrideAttrs (finalAttrs: previousAttrs: {
+        src = prev.fetchFromGitHub {
+          owner = "rtkt";
+          repo = "node2nix";
+          rev = "ea8ebcdacf496c3d35d8eb2b115d10c8f01d8823";
+          sha256 = "sha256-DCdmlyzta2gmqmXjV5NuQj5BgimifBFKIU7rk1OS4pw=";
+        };
+      });
     };
     nixosModules = {
       n8n = import ./modules/n8n;
