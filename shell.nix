@@ -15,5 +15,6 @@ pkgs.mkShell {
     pkgs.docbook_xsl
     pkgs.docbook_xml_dtd_45
     pkgs.rpcsvc-proto
+    pkgs.nodePackages.node-pre-gyp
   ];
 }
