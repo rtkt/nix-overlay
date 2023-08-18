@@ -13,6 +13,7 @@ in
   nodePackages.n8n.override {
     nativeBuildInputs = [
       pkgs.nodePackages.node-pre-gyp
+      pkgs.which
     ];
 
     buildInputs = [
