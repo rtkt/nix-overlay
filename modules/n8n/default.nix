@@ -37,6 +37,7 @@ in {
         ExecStart = "${pkgs.n8n}/bin/n8n";
         Restart = "on-failure";
         StateDirectory = "n8n";
+        CPUSchedulingPolicy = "SCHED_BATCH";
 
         NoNewPrivileges = "yes";
         PrivateTmp = "yes";
