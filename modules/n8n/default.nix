@@ -31,13 +31,15 @@ in {
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
       environment = cfg.settings;
-      path = [pkgs.nodejs-18_x pkgs.n8n];
+      path = [pkgs.nodejs_20 pkgs.n8n];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.n8n}/bin/n8n";
         Restart = "on-failure";
         StateDirectory = "n8n";
         CPUSchedulingPolicy = "SCHED_BATCH";
+        MemoryMax = "800M";
+        CPUQuota = "92%";
 
         NoNewPrivileges = "yes";
         PrivateTmp = "yes";
