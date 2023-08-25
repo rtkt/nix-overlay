@@ -54,7 +54,7 @@ in {
       wantedBy = ["multi-user.target"];
       environment = cfg.settings;
       path = [pkgs.nodejs_20 pkgs.n8n];
-      serviceConfig =
+      serviceConfig = mkMerge [
         {
           Type = "simple";
           ExecStart = "${pkgs.n8n}/bin/n8n";
@@ -78,21 +78,17 @@ in {
           MemoryDenyWriteExecute = "no";
           LockPersonality = "yes";
         }
-        // (
-          if (builtins.isInt cfg.quota)
-          then {
+        (
+          mkIf (builtins.isInt cfg.quota) {
             CPUQuota = "${builtins.toString cfg.quota}%";
           }
-          else {}
         )
-        // (
-          if (builtins.isString cfg.memorymax)
-          then {
+        (
+          mkIf (builtins.isString cfg.memorymax) {
             MemoryMax = "${cfg.memorymax}";
           }
-          else {}
         )
-        // (
+        (
           if (builtins.isString cfg.user)
           then {
             User = "${cfg.user}";
@@ -100,7 +96,8 @@ in {
           else {
             DynamicUser = "true";
           }
-        );
+        )
+      ];
     };
   };
 }
