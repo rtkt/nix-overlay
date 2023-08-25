@@ -23,6 +23,16 @@ in {
         else v);
       description = "Set of configurational environment variables";
     };
+    quota = mkOption {
+      type = types.nullOr types.int;
+      default = null;
+      description = "CPU quota in percents";
+    };
+    memorymax = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Maximum amount of RAM. See man systemd.resource-control";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -32,32 +42,45 @@ in {
       wantedBy = ["multi-user.target"];
       environment = cfg.settings;
       path = [pkgs.nodejs_20 pkgs.n8n];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.n8n}/bin/n8n";
-        Restart = "on-failure";
-        StateDirectory = "n8n";
-        CPUSchedulingPolicy = "SCHED_BATCH";
-        MemoryMax = "800M";
-        CPUQuota = "92%";
+      serviceConfig =
+        {
+          Type = "simple";
+          ExecStart = "${pkgs.n8n}/bin/n8n";
+          Restart = "on-failure";
+          StateDirectory = "n8n";
+          CPUSchedulingPolicy = "batch";
 
-        NoNewPrivileges = "yes";
-        PrivateTmp = "yes";
-        PrivateDevices = "yes";
-        DevicePolicy = "closed";
-        DynamicUser = "true";
-        ProtectSystem = "strict";
-        ProtectHome = "read-only";
-        ProtectControlGroups = "yes";
-        ProtectKernelModules = "yes";
-        ProtectKernelTunables = "yes";
-        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-        RestrictNamespaces = "yes";
-        RestrictRealtime = "yes";
-        RestrictSUIDSGID = "yes";
-        MemoryDenyWriteExecute = "no";
-        LockPersonality = "yes";
-      };
+          NoNewPrivileges = "yes";
+          PrivateTmp = "yes";
+          PrivateDevices = "yes";
+          DevicePolicy = "closed";
+          DynamicUser = "true";
+          ProtectSystem = "strict";
+          ProtectHome = "read-only";
+          ProtectControlGroups = "yes";
+          ProtectKernelModules = "yes";
+          ProtectKernelTunables = "yes";
+          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+          RestrictNamespaces = "yes";
+          RestrictRealtime = "yes";
+          RestrictSUIDSGID = "yes";
+          MemoryDenyWriteExecute = "no";
+          LockPersonality = "yes";
+        }
+        // (
+          if (builtins.isInt cfg.quota)
+          then {
+            CPUQuota = "${builtins.toString cfg.quota}%";
+          }
+          else {}
+        )
+        // (
+          if (builtins.isString cfg.memorymax)
+          then {
+            MemoryMax = "${cfg.memorymax}";
+          }
+          else {}
+        );
     };
   };
 }
