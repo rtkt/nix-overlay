@@ -38,6 +38,11 @@ in {
       default = null;
       description = "Name of the N8N service user. If it's not specified then systemd will create dynamic user";
     };
+    group = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Name of the N8N service group. If it's not specified then the name of the user will be used";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -45,8 +50,20 @@ in {
       "${cfg.user}" = {
         isSystemUser = true;
         home = "/var/lib/n8n";
+        group = "${
+          if (builtins.isString cfg.group)
+          then cfg.group
+          else cfg.user
+        }";
         shell = "${pkgs.shadow}/bin/nologin";
       };
+    };
+    users.groups = mkIf (builtins.isString cfg.user) {
+      "${
+        if (builtins.isString cfg.group)
+        then cfg.group
+        else cfg.user
+      }" = {};
     };
     systemd.services.n8n-custom = {
       description = "N8N service";
