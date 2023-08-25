@@ -33,9 +33,21 @@ in {
       default = null;
       description = "Maximum amount of RAM. See man systemd.resource-control";
     };
+    user = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Name of the N8N service user. If it's not specified then systemd will create dynamic user";
+    };
   };
 
   config = mkIf cfg.enable {
+    users.users = mkIf (builtins.isString cfg.user) {
+      "${cfg.user}" = {
+        isSystemUser = true;
+        home = "/var/lib/n8n";
+        shell = "${pkgs.shadow}/bin/nologin";
+      };
+    };
     systemd.services.n8n-custom = {
       description = "N8N service";
       after = ["network.target"];
@@ -54,7 +66,6 @@ in {
           PrivateTmp = "yes";
           PrivateDevices = "yes";
           DevicePolicy = "closed";
-          DynamicUser = "true";
           ProtectSystem = "strict";
           ProtectHome = "read-only";
           ProtectControlGroups = "yes";
@@ -80,6 +91,15 @@ in {
             MemoryMax = "${cfg.memorymax}";
           }
           else {}
+        )
+        // (
+          if (builtins.isString cfg.user)
+          then {
+            User = "${cfg.user}";
+          }
+          else {
+            DynamicUser = "true";
+          }
         );
     };
   };
