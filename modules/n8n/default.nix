@@ -23,6 +23,11 @@ in {
         else v);
       description = "Set of configurational environment variables";
     };
+    port = mkOption {
+      type = types.int;
+      default = 9998;
+      description = "N8N's network port";
+    };
     quota = mkOption {
       type = types.nullOr types.int;
       default = null;
@@ -42,6 +47,44 @@ in {
       type = types.nullOr types.str;
       default = null;
       description = "Name of the N8N service group. If it's not specified then the name of the user will be used";
+    };
+    smtp = mkOption {
+      description = "SMTP settings. Enables user management";
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "SMTP";
+
+          host = mkOption {
+            description = "Mail server address";
+            type = types.str;
+            example = "mail.google.com";
+          };
+          port = mkOption {
+            description = "SMTP server port";
+            default = null;
+            type = types.nullOr types.int;
+            example = 993;
+          };
+          sender = mkOption {
+            description = "Sender name";
+            type = types.str;
+            example = "N8N";
+          };
+          user = mkOption {
+            description = "SMTP username";
+            default = null;
+            type = types.nullOr types.str;
+            example = "anon";
+          };
+          passwordFile = mkOption {
+            description = "Path to the file with SMTP users' password";
+            default = null;
+            type = types.nullOr types.path;
+            example = "/run/pass";
+          };
+          ssl = mkEnableOption "SSL for SMTP";
+        };
+      };
     };
   };
 
@@ -69,12 +112,46 @@ in {
       description = "N8N service";
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
-      environment = cfg.settings;
+      environment = mkMerge [
+        cfg.settings
+        (
+          mkIf cfg.smtp.enable (
+            mkMerge [
+              {
+                N8N_EMAIL_MODE = "smtp";
+                N8N_SMTP_HOST = "${cfg.smtp.host}";
+                N8N_SMTP_SENDER = "${cfg.smtp.sender}";
+              }
+              (
+                mkIf (builtins.isInt cfg.smtp.port) {
+                  N8N_SMTP_PORT = "${builtins.toString cfg.smtp.port}";
+                }
+              )
+              (
+                mkIf (!cfg.smtp.ssl) {
+                  N8N_SMTP_SSL = "false";
+                }
+              )
+            ]
+          )
+        )
+        (
+          mkIf (builtins.isInt cfg.port) {
+            N8N_PORT = "${builtins.toString cfg.port}";
+          }
+        )
+      ];
       path = [pkgs.nodejs_20 pkgs.n8n];
+      script = ''
+        ${optionalString (cfg.smtp.user != null && cfg.smtp.passwordFile != null) ''
+          export N8N_SMTP_USER="${cfg.smtp.user}"
+          export N8N_SMTP_PASS="$(cat ${cfg.smtp.passwordFile})"
+        ''}
+        ${pkgs.n8n}/bin/n8n
+      '';
       serviceConfig = mkMerge [
         {
           Type = "simple";
-          ExecStart = "${pkgs.n8n}/bin/n8n";
           Restart = "on-failure";
           StateDirectory = "n8n";
           CPUSchedulingPolicy = "batch";
