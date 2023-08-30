@@ -1192,13 +1192,13 @@ let
         sha512 = "Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==";
       };
     };
-    "@mongodb-js/zstd-1.1.0" = {
+    "@mongodb-js/zstd-1.2.0" = {
       name = "_at_mongodb-js_slash_zstd";
       packageName = "@mongodb-js/zstd";
-      version = "1.1.0";
+      version = "1.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@mongodb-js/zstd/-/zstd-1.1.0.tgz";
-        sha512 = "+dRj3tSgenHhdqZ1d9ii7PKrXerXOZgDKJE9E2IFxC2lOecgOnSnInAD1o6hCFmyJ5NDQrcsrJKxkOlptwA1mw==";
+        url = "https://registry.npmjs.org/@mongodb-js/zstd/-/zstd-1.2.0.tgz";
+        sha512 = "sKHsJU2MXsp822IFXOHw/4mpFulScNHpZzVy1Zi5k5wBsdiAPx1QramyOXZkpacla+2QPEC/s7TxPlEhG/HuNQ==";
       };
     };
     "@n8n/client-oauth2-0.7.0" = {
@@ -3271,13 +3271,13 @@ let
         sha512 = "H5Vrb/GMzq72+Of2zrW69i/BTQ4gQd3MQvdZ3X3okfppzHdEjSPkdJN6ia8V2/1J1FmFvEtoxaY4nwraHUGQvg==";
       };
     };
-    "aws-sdk-2.1446.0" = {
+    "aws-sdk-2.1447.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.1446.0";
+      version = "2.1447.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1446.0.tgz";
-        sha512 = "QaIyQz9csPSgujM+asHNWHh6uw1FDh+SxpUERLbePDYwqycQha/0BkOxTciGh/Jhp26tKMnHL7rwrYl37H6RYA==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1447.0.tgz";
+        sha512 = "7Z0VMwD679OCjZCgNbRnA0ZNxfpT8zSrI9PQXu9J0uwV7xAAfaRk3nKFpOgvobUkOXszlBiYdVubhbaHOzITtA==";
       };
     };
     "aws4-1.12.0" = {
@@ -4999,13 +4999,13 @@ let
         sha512 = "rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==";
       };
     };
-    "electron-to-chromium-1.4.504" = {
+    "electron-to-chromium-1.4.505" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.504";
+      version = "1.4.505";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.504.tgz";
-        sha512 = "cSMwIAd8yUh54VwitVRVvHK66QqHWE39C3DRj8SWiXitEpVSY3wNPD9y1pxQtLIi4w3UdzF9klLsmuPshz09DQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.505.tgz";
+        sha512 = "0A50eL5BCCKdxig2SsCXhpuztnB9PfUgRMojj5tMvt8O54lbwz3t6wNgnpiTRosw5QjlJB7ixhVyeg8daLQwSQ==";
       };
     };
     "element-plus-2.3.12" = {
@@ -7069,13 +7069,13 @@ let
         sha512 = "BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==";
       };
     };
-    "jackspeak-2.3.0" = {
+    "jackspeak-2.3.1" = {
       name = "jackspeak";
       packageName = "jackspeak";
-      version = "2.3.0";
+      version = "2.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jackspeak/-/jackspeak-2.3.0.tgz";
-        sha512 = "uKmsITSsF4rUWQHzqaRUuyAir3fZfW3f202Ee34lz/gZCi970CPZwyQXLGNgWJvvZbvFyzeyGq0+4fcG/mBKZg==";
+        url = "https://registry.npmjs.org/jackspeak/-/jackspeak-2.3.1.tgz";
+        sha512 = "4iSY3Bh1Htv+kLhiiZunUhQ+OYXIn0ze3ulq8JeWrFKmhPAJSySV2+kdtRh2pGcCeF0s6oR8Oc+pYZynJj4t8A==";
       };
     };
     "jake-10.8.7" = {
@@ -7366,13 +7366,13 @@ let
         sha512 = "+Rcfu2hyQ/jv5skqRY8xA7Ra+mmRkDAzCaLDYbkGtgsNKpzxPWiLbk8ub0dgr4EbWrN1Zb4BCXHUkD6+zYfdWg==";
       };
     };
-    "kerberos-2.0.1" = {
+    "kerberos-2.0.2" = {
       name = "kerberos";
       packageName = "kerberos";
-      version = "2.0.1";
+      version = "2.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/kerberos/-/kerberos-2.0.1.tgz";
-        sha512 = "O/jIgbdGK566eUhFwIcgalbqirYU/r76MW7/UFw06Fd9x5bSwgyZWL/Vm26aAmezQww/G9KYkmmJBkEkPk5HLw==";
+        url = "https://registry.npmjs.org/kerberos/-/kerberos-2.0.2.tgz";
+        sha512 = "pP1aZ+T9/58joIdvhqTKTAnwLVLe3cnh+fE7UazuuHNCf4BxHUwF+oh5g2KK3yhouTfb3RQMi+mjw3/6vshdOg==";
       };
     };
     "kuler-2.0.0" = {
@@ -8446,22 +8446,22 @@ let
         sha512 = "dGWu4vzY6r6Y6hQS0ppPOh9YU8ma29GxsZdH0jbr6V9CZZpZIyTUydQo7yI3/BEVQLXjCihcQbZpCojsS8TZrA==";
       };
     };
-    "n8n-editor-ui-1.4.0" = {
+    "n8n-editor-ui-1.4.1" = {
       name = "n8n-editor-ui";
       packageName = "n8n-editor-ui";
-      version = "1.4.0";
+      version = "1.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/n8n-editor-ui/-/n8n-editor-ui-1.4.0.tgz";
-        sha512 = "zG7YDe8HFwVz+KkBE2lVwtqs4/uwlrgncD+2TAD4qeRIuGmhpFDQl+1zSgHnYWmrIMpPAd0cqc6RcjXPl5brGA==";
+        url = "https://registry.npmjs.org/n8n-editor-ui/-/n8n-editor-ui-1.4.1.tgz";
+        sha512 = "CPjJocT3nDiG+A/VHKJf1Ofsjk8xvDlSVWNcoJ4Meq6UzuB0Coba32l/jecX2ZfoMQbHNOd3lj1g0PYB1yyNXg==";
       };
     };
-    "n8n-nodes-base-1.4.0" = {
+    "n8n-nodes-base-1.4.1" = {
       name = "n8n-nodes-base";
       packageName = "n8n-nodes-base";
-      version = "1.4.0";
+      version = "1.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/n8n-nodes-base/-/n8n-nodes-base-1.4.0.tgz";
-        sha512 = "uOSO2ussMNKHchn/eVE2UV/tgncH+pRt1FUD7hw/tK+4wxH/7Lv/0FEK1p+edZ4bWXP2lIm12oc5KUmnEiaHGg==";
+        url = "https://registry.npmjs.org/n8n-nodes-base/-/n8n-nodes-base-1.4.1.tgz";
+        sha512 = "9HLx6ulCFIq7kSCgxVKww4W58D6PONX2szstWhuOEFFV/inJXrg5Iw0TRT2Tqx8dCLPpAk0+dZOJBXms/rTSPQ==";
       };
     };
     "n8n-workflow-1.4.0" = {
@@ -8597,6 +8597,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/node-addon-api/-/node-addon-api-4.3.0.tgz";
         sha512 = "73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==";
+      };
+    };
+    "node-addon-api-6.1.0" = {
+      name = "node-addon-api";
+      packageName = "node-addon-api";
+      version = "6.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/node-addon-api/-/node-addon-api-6.1.0.tgz";
+        sha512 = "+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==";
       };
     };
     "node-fetch-2.7.0" = {
@@ -9553,13 +9562,13 @@ let
         sha512 = "bQ/0XPZZ7eX+cdAkd61uYWpfMhakH3NeteUF1R8GNa+LMqX8QFAkbCLqq+AYAns1/ueACBu/BMWhrlKGrdvGZg==";
       };
     };
-    "postcss-8.4.28" = {
+    "postcss-8.4.29" = {
       name = "postcss";
       packageName = "postcss";
-      version = "8.4.28";
+      version = "8.4.29";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.28.tgz";
-        sha512 = "Z7V5j0cq8oEKyejIKfpD8b4eBy9cwW2JWPk0+fB1HOAMsfHbnAXLLS+PfVWlzMSLQaWttKDt607I0XHmpE67Vw==";
+        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.29.tgz";
+        sha512 = "cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==";
       };
     };
     "postgres-array-1.0.3" = {
@@ -9634,13 +9643,13 @@ let
         sha512 = "ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==";
       };
     };
-    "prettier-3.0.2" = {
+    "prettier-3.0.3" = {
       name = "prettier";
       packageName = "prettier";
-      version = "3.0.2";
+      version = "3.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/prettier/-/prettier-3.0.2.tgz";
-        sha512 = "o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==";
+        url = "https://registry.npmjs.org/prettier/-/prettier-3.0.3.tgz";
+        sha512 = "L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==";
       };
     };
     "pretty-bytes-5.6.0" = {
@@ -10750,13 +10759,13 @@ let
         sha512 = "iADMq1kY0v3vJmGTuKcFWSXt15qYUz7wFkArOrsSg0IFfI3nJqIJvK2/ZbEIndg7erIJLtAVX2nSOqPz7DcwbA==";
       };
     };
-    "snowflake-sdk-1.7.0" = {
+    "snowflake-sdk-1.8.0" = {
       name = "snowflake-sdk";
       packageName = "snowflake-sdk";
-      version = "1.7.0";
+      version = "1.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/snowflake-sdk/-/snowflake-sdk-1.7.0.tgz";
-        sha512 = "dSCq4NGBV67Ws9VPEO1md8AZw2mx8czoosBdq8CKdVSwUf9e9wUMpH+VEeIJUKy573M/B4vLU4CUYrhGlSkUHQ==";
+        url = "https://registry.npmjs.org/snowflake-sdk/-/snowflake-sdk-1.8.0.tgz";
+        sha512 = "zdU1c+ytIZclF4K6D4XPPHa5II6l6cOQdsLdvKP95IwSdTYJz324ESA7fPcg/rwYV7vUKnIZJ9OCjB1mE7D2IQ==";
       };
     };
     "socks-2.7.1" = {
@@ -11398,13 +11407,13 @@ let
         sha512 = "jJZpA5He2y52yUhA7pyAGZlgQpcB+xLjcN0eUFxr9c8hP/H7uOXbBNVo/O0C/xVfJLJs680jvkFgVJEEvk9+ww==";
       };
     };
-    "terser-5.19.2" = {
+    "terser-5.19.3" = {
       name = "terser";
       packageName = "terser";
-      version = "5.19.2";
+      version = "5.19.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.19.2.tgz";
-        sha512 = "qC5+dmecKJA4cpYxRa5aVkKehYsQKc+AHeKl0Oe62aYjBL8ZA33tTljktDHJSaxxMnbI5ZYw+o/S2DxxLu8OfA==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.19.3.tgz";
+        sha512 = "pQzJ9UJzM0IgmT4FAtYI6+VqFf0lj/to58AV0Xfgg0Up37RyPG7Al+1cepC6/BVuAxR9oNb41/DL4DEoHJvTdg==";
       };
     };
     "terser-webpack-plugin-5.3.9" = {
@@ -12674,10 +12683,10 @@ in
   n8n = nodeEnv.buildNodePackage {
     name = "n8n";
     packageName = "n8n";
-    version = "1.4.0";
+    version = "1.4.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/n8n/-/n8n-1.4.0.tgz";
-      sha512 = "h0ciHfePka1ykbPaKOZiggBWBtd5zPimUEsP59YMcXi0JHiBDyreWrdBlZ/icDeF4bsPJXhSzPQlNuTSGQlXSw==";
+      url = "https://registry.npmjs.org/n8n/-/n8n-1.4.1.tgz";
+      sha512 = "LmJdZ7kMnfr5LcwzKXx0lbtGc5Q5RxS4GOAJwTkYDYO2TRDraijdUjlaVCAJpUNGBhkPQZ5WJuaiw9WEl8ULsg==";
     };
     dependencies = [
       (sources."@acuminous/bitsyntax-0.1.2" // {
@@ -12931,7 +12940,7 @@ in
       sources."@lezer/lr-1.3.10"
       sources."@lezer/python-1.1.8"
       sources."@mapbox/node-pre-gyp-1.0.11"
-      sources."@mongodb-js/zstd-1.1.0"
+      sources."@mongodb-js/zstd-1.2.0"
       sources."@n8n/client-oauth2-0.7.0"
       sources."@n8n/codemirror-lang-sql-1.0.2"
       sources."@n8n_io/license-sdk-2.4.0"
@@ -13219,7 +13228,7 @@ in
           sources."axios-0.24.0"
         ];
       })
-      (sources."aws-sdk-2.1446.0" // {
+      (sources."aws-sdk-2.1447.0" // {
         dependencies = [
           sources."buffer-4.9.2"
           sources."events-1.1.1"
@@ -13469,7 +13478,7 @@ in
       sources."ecdsa-sig-formatter-1.0.11"
       sources."ee-first-1.1.1"
       sources."ejs-3.1.9"
-      sources."electron-to-chromium-1.4.504"
+      sources."electron-to-chromium-1.4.505"
       (sources."element-plus-2.3.12" // {
         dependencies = [
           sources."@types/web-bluetooth-0.0.16"
@@ -13790,7 +13799,7 @@ in
       sources."isexe-2.0.0"
       sources."iso-639-1-2.1.15"
       sources."isomorphic-ws-4.0.1"
-      sources."jackspeak-2.3.0"
+      sources."jackspeak-2.3.1"
       sources."jake-10.8.7"
       (sources."jest-worker-27.5.1" // {
         dependencies = [
@@ -13827,7 +13836,11 @@ in
       sources."jwks-rsa-3.0.1"
       sources."jws-3.2.2"
       sources."kafkajs-1.16.0"
-      sources."kerberos-2.0.1"
+      (sources."kerberos-2.0.2" // {
+        dependencies = [
+          sources."node-addon-api-6.1.0"
+        ];
+      })
       sources."kuler-2.0.0"
       (sources."ldapts-4.2.6" // {
         dependencies = [
@@ -14040,8 +14053,8 @@ in
           sources."vue-2.7.14"
         ];
       })
-      sources."n8n-editor-ui-1.4.0"
-      (sources."n8n-nodes-base-1.4.0" // {
+      sources."n8n-editor-ui-1.4.1"
+      (sources."n8n-nodes-base-1.4.1" // {
         dependencies = [
           sources."@tediousjs/connection-string-0.3.0"
           (sources."bl-5.1.0" // {
@@ -14241,7 +14254,7 @@ in
       sources."picomatch-2.3.1"
       sources."pinia-2.1.6"
       sources."pkce-challenge-3.1.0"
-      sources."postcss-8.4.28"
+      sources."postcss-8.4.29"
       sources."postgres-array-2.0.0"
       sources."postgres-bytea-1.0.0"
       sources."postgres-date-1.0.7"
@@ -14257,7 +14270,7 @@ in
         ];
       })
       sources."prelude-ls-1.1.2"
-      sources."prettier-3.0.2"
+      sources."prettier-3.0.3"
       sources."pretty-bytes-5.6.0"
       sources."process-0.11.10"
       sources."process-nextick-args-2.0.1"
@@ -14435,7 +14448,7 @@ in
       sources."smart-buffer-4.2.0"
       sources."snake-case-3.0.4"
       sources."snappy-7.2.2"
-      (sources."snowflake-sdk-1.7.0" // {
+      (sources."snowflake-sdk-1.8.0" // {
         dependencies = [
           sources."axios-0.27.2"
           sources."bignumber.js-2.4.0"
@@ -14549,7 +14562,7 @@ in
           sources."http-proxy-agent-5.0.0"
         ];
       })
-      (sources."terser-5.19.2" // {
+      (sources."terser-5.19.3" // {
         dependencies = [
           sources."commander-2.20.3"
         ];
