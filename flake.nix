@@ -13,7 +13,7 @@
     overlays.default = final: prev: let
       localPkgs = import ./default.nix {pkgs = final;};
     in {
-      inherit (localPkgs) samba-for-ps2 tcpflow n8n oplpctools;
+      inherit (localPkgs) samba-for-ps2 tcpflow n8n oplpctools nginx-dns;
       google-authenticator =
         (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
           preConfigure = null;
@@ -30,6 +30,7 @@
       ntfy = import ./modules/ntfy;
       samba-for-ps2 = import ./modules/samba-for-ps2;
       sshguard-custom = import ./modules/sshguard-custom;
+      nginx-dns = import ./modules/nginx-dns;
     };
 
     packages.${system} = import ./default.nix {

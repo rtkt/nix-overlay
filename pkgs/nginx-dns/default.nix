@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 }:
 stdenv.mkDerivation rec {
   pname = "nginx-dns";
@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out"
     cd "njs.d/dns"
-    cp -t "$out" $(ls)    
+    cp -t "$out" $(ls)
   '';
 }
