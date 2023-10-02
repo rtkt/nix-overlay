@@ -48,6 +48,9 @@ in {
           proxy_pass dns;
         }
       '';
+      # appendHttpConfig = ''
+      #   proxy_cache_path /var/cache/nginx/doh_cache levels=1:2 keys_zone=doh_cache:256;
+      # '';
       upstreams."${cfg.loopAddr}" = {
         servers."127.0.0.1:${builtins.toString cfg.port}" = {};
         extraConfig = ''
@@ -57,8 +60,10 @@ in {
       virtualHosts."${cfg.domain}".locations."/dns-query" = {
         proxyPass = "http://${cfg.loopAddr}";
         extraConfig = ''
-          proxy_http_version 1.1;
-          proxy_set_header Connection "";
+          proxy_http_version 1.0;
+          # proxy_cache doh_cache;
+          # proxy_cache_key $scheme$proxy_host$uri$is_args$args$request_body;
+          # proxy_cache_methods GET POST;
         '';
       };
     };
