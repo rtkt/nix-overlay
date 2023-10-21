@@ -1,6 +1,5 @@
 {
   pkgs,
-  nodejs-18_x,
   stdenv,
   lib,
   nixosTests,
