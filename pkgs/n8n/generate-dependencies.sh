@@ -12,10 +12,11 @@
 #             -> cmake
 cd "$(dirname $(readlink -f $0))"
 
-node2nix \
-  --nodejs-18 \
+node ../../../node2nix/bin/node2nix.js \
+  --nodejs-20 \
   --strip-optional-dependencies \
   --node-env node-env.nix \
   --input package.json \
   --output node-packages.nix \
-  --composition node-composition.nix
+  --composition node-composition.nix \
+  --supplement-input supplement.json
