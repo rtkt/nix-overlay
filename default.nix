@@ -4,5 +4,4 @@
   n8n = pkgs.callPackage ./pkgs/n8n {};
   oplpctools = pkgs.callPackage ./pkgs/oplpctools {};
   nginx-dns = pkgs.callPackage ./pkgs/nginx-dns {};
-  any-date-parser = pkgs.callPackage ./pkgs/any-date-parser {};
 }

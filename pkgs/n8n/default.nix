@@ -9,7 +9,7 @@
     inherit (stdenv.hostPlatform) system;
   };
 in
-  nodePackages.n8n.override {
+  nodePackages.n8n.override (prev: {
     nativeBuildInputs = [
       pkgs.nodePackages.node-pre-gyp
       pkgs.which
@@ -20,6 +20,8 @@ in
       pkgs.libmongocrypt
       pkgs.libkrb5
     ];
+
+    dependencies = prev.dependencies ++ [nodePackages.any-date-parser];
 
     preRebuild =
       # Oracle's official package on npm is binary only (WHY?!) and doesn't provide binaries for aarch64.
@@ -52,4 +54,4 @@ in
         redistributable = false;
       };
     };
-  }
+  })
