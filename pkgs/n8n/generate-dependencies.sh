@@ -18,5 +18,4 @@ node ../../../node2nix/bin/node2nix.js \
   --node-env node-env.nix \
   --input package.json \
   --output node-packages.nix \
-  --composition node-composition.nix \
-  --supplement-input supplement.json
+  --composition node-composition.nix
