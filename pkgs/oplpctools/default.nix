@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
     cmake
     copyDesktopItems
+    qt5.qttools
   ];
   buildInputs = [
     qt5.qtbase
