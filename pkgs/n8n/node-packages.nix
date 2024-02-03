@@ -2128,13 +2128,13 @@ let
         sha512 = "ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==";
       };
     };
-    "@types/express-serve-static-core-4.17.42" = {
+    "@types/express-serve-static-core-4.17.43" = {
       name = "_at_types_slash_express-serve-static-core";
       packageName = "@types/express-serve-static-core";
-      version = "4.17.42";
+      version = "4.17.43";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.42.tgz";
-        sha512 = "ckM3jm2bf/MfB3+spLPWYPUH573plBFwpOhqQ2WottxYV85j1HQFlxmnTq57X1yHY9awZPig06hL/cLMgNWHIQ==";
+        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.43.tgz";
+        sha512 = "oaYtiBirUOPQGSWNGPWnzyAFJ0BP3cwvN4oWZQY+zUBwpVIGsKUkpBpSztp74drYcjavs7SKFZ4DX1V2QeN8rg==";
       };
     };
     "@types/glob-8.1.0" = {
@@ -5845,13 +5845,13 @@ let
         sha512 = "8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==";
       };
     };
-    "is-array-buffer-3.0.2" = {
+    "is-array-buffer-3.0.4" = {
       name = "is-array-buffer";
       packageName = "is-array-buffer";
-      version = "3.0.2";
+      version = "3.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-array-buffer/-/is-array-buffer-3.0.2.tgz";
-        sha512 = "y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==";
+        url = "https://registry.npmjs.org/is-array-buffer/-/is-array-buffer-3.0.4.tgz";
+        sha512 = "wcjaerHw0ydZwfhiKbXJWLDY8A7yV7KhjQOpb83hGgGfId/aQa4TOvwyzn2PuswW2gPCYEL/nEAiSVpdOj1lXw==";
       };
     };
     "is-arrayish-0.3.2" = {
@@ -6547,13 +6547,13 @@ let
         sha512 = "SW6105T+YP1cTe0yMf//7kyshCgvCTyFBMTgH2H3s9rTAR4e+78DA/BBrUL/Mt4Q5eMWui7iGuAYb3pgGsdQ9w==";
       };
     };
-    "langsmith-0.0.63" = {
+    "langsmith-0.0.66" = {
       name = "langsmith";
       packageName = "langsmith";
-      version = "0.0.63";
+      version = "0.0.66";
       src = fetchurl {
-        url = "https://registry.npmjs.org/langsmith/-/langsmith-0.0.63.tgz";
-        sha512 = "8KtbiltWP8Ta7xErfXRvLudKgIoc/yRb9oSU8Ozh2215rlz9tnYicl37lS/ZdyeSbpSX8Rh8XhLTN5zVQ+5euA==";
+        url = "https://registry.npmjs.org/langsmith/-/langsmith-0.0.66.tgz";
+        sha512 = "yextqrwQiN+2Y0WjHEjQmwS9V6886RIuUG8esibiSh6BTHrtt1WMCAPKJIy8E1+HQvVY7IzsuJ4vzpkKi0wcTQ==";
       };
     };
     "ldapts-4.2.6" = {
@@ -6601,13 +6601,13 @@ let
         sha512 = "xOqorG21Va+3CjpFOfFTU7SWohHH2uIX9ZY4Byz6J+lvpfvc486tOAT/G9GfbrKtJ9O7NCX9o0aC2lxqbnZ9EA==";
       };
     };
-    "libphonenumber-js-1.10.54" = {
+    "libphonenumber-js-1.10.55" = {
       name = "libphonenumber-js";
       packageName = "libphonenumber-js";
-      version = "1.10.54";
+      version = "1.10.55";
       src = fetchurl {
-        url = "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.10.54.tgz";
-        sha512 = "P+38dUgJsmh0gzoRDoM4F5jLbyfztkU6PY6eSK6S5HwTi/LPvnwXqVCQZlAy1FxZ5c48q25QhxGQ0pq+WQcSlQ==";
+        url = "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.10.55.tgz";
+        sha512 = "MrTg2JFLscgmTY6/oT9vopYETlgUls/FU6OaeeamGwk4LFxjIgOUML/ZSZICgR0LPYXaonVJo40lzMvaaTJlQA==";
       };
     };
     "libqp-1.1.0" = {
@@ -11507,7 +11507,7 @@ in
       sources."@types/connect-3.4.38"
       sources."@types/es-aggregate-error-1.0.6"
       sources."@types/express-4.17.21"
-      sources."@types/express-serve-static-core-4.17.42"
+      sources."@types/express-serve-static-core-4.17.43"
       sources."@types/glob-8.1.0"
       sources."@types/http-errors-2.0.4"
       sources."@types/json-schema-7.0.15"
@@ -12063,7 +12063,7 @@ in
       sources."ipaddr.js-1.9.1"
       sources."is-any-array-2.0.1"
       sources."is-arguments-1.1.1"
-      sources."is-array-buffer-3.0.2"
+      sources."is-array-buffer-3.0.4"
       sources."is-arrayish-0.3.2"
       sources."is-bigint-1.0.4"
       sources."is-binary-path-2.1.0"
@@ -12158,7 +12158,7 @@ in
         ];
       })
       sources."langchainhub-0.0.6"
-      (sources."langsmith-0.0.63" // {
+      (sources."langsmith-0.0.66" // {
         dependencies = [
           sources."commander-10.0.1"
           sources."uuid-9.0.1"
@@ -12177,7 +12177,7 @@ in
           sources."iconv-lite-0.6.3"
         ];
       })
-      sources."libphonenumber-js-1.10.54"
+      sources."libphonenumber-js-1.10.55"
       sources."libqp-1.1.0"
       sources."lie-3.1.1"
       sources."limiter-1.1.5"
