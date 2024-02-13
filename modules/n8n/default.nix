@@ -48,6 +48,11 @@ in {
       default = null;
       description = "Name of the N8N service group. If it's not specified then the name of the user will be used";
     };
+    key = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "N8N's encryption key that is exported in N8N_ENCRYPTION_KEY environment variable. See https://docs.n8n.io/hosting/environment-variables/environment-variables/#deployment for more";
+    };
     smtp = mkOption {
       description = "SMTP settings. Enables user management";
       type = types.submodule {
@@ -146,6 +151,10 @@ in {
         ${optionalString (cfg.smtp.user != null && cfg.smtp.passwordFile != null) ''
           export N8N_SMTP_USER="${cfg.smtp.user}"
           export N8N_SMTP_PASS="$(cat ${cfg.smtp.passwordFile})"
+        ''}
+
+        ${optionalString (cfg.key != null) ''
+          export N8N_ENCRYPTION_KEY="$(cat ${cfg.key})"
         ''}
         ${pkgs.n8n}/bin/n8n
       '';
