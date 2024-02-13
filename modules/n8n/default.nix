@@ -255,11 +255,7 @@ in {
           script =
             scriptTemplate
             + ''
-              COUNTER=0
-              while [ $COUNTER -lt ${builtins.toString cfg.queue.workers} ]; do
-                $(${pkgs.n8n}/bin/n8n worker &)
-                let COUNTER=COUNTER+1
-              done
+              ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker
             '';
         }
         // serviceTemplate);
