@@ -56,24 +56,29 @@ in {
     queue = mkOption {
       description = "N8N's queue execution mode settings";
       type = types.submodule {
-        enable = mkEnableOption "queue execution mode";
+        options = {
+          enable = mkEnableOption "queue execution mode";
 
-        redis = mkOption {
-          description = "Redis queue settings";
-          type = types.submodule {
-            host = mkOption {
-              description = "Address of the host that runs Redis queue DB";
-              default = "localhost";
-              type = types.str;
-            };
-            port = mkOption {
-              description = "Port of the Redis";
-              type = types.int;
-            };
-            passwordFile = mkOption {
-              description = "Path to the file with password for Redis";
-              type = types.nullOr types.str;
-              default = null;
+          redis = mkOption {
+            description = "Redis queue settings";
+            type = types.submodule {
+              options = {
+                host = mkOption {
+                  description = "Address of the host that runs Redis queue DB";
+                  default = "localhost";
+                  type = types.str;
+                };
+                port = mkOption {
+                  description = "Port of the Redis";
+                  type = types.int;
+                  default = 64000;
+                };
+                passwordFile = mkOption {
+                  description = "Path to the file with password for Redis";
+                  type = types.nullOr types.str;
+                  default = null;
+                };
+              };
             };
           };
         };
@@ -138,6 +143,12 @@ in {
         then cfg.group
         else cfg.user
       }" = {};
+    };
+    services.redis.servers.n8n-queue = mkIf cfg.queue.enable {
+      enable = true;
+      user = cfg.user;
+      requirePassFile = cfg.queue.redis.passwordFile;
+      port = cfg.queue.redis.port;
     };
     systemd.services.n8n-custom = {
       description = "N8N service";
