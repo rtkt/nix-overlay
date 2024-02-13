@@ -250,7 +250,7 @@ in {
           script =
             scriptTemplate
             + ''
-              ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker;
+              ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker
             '';
         }
         // serviceTemplate);
