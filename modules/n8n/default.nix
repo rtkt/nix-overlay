@@ -232,7 +232,7 @@ in {
     systemd.services.n8n-main =
       {
         description = "N8N main service";
-        after = ["network.target"];
+        after = ["network.target" "redis-n8n-queue.service"];
 
         script =
           scriptTemplate
@@ -245,7 +245,8 @@ in {
       mkIf cfg.queue.enable
       {
         description = "N8N workers service";
-        after = ["network.target" "n8n-main.service" "redis-n8n-queue.service"];
+        after = ["network.target" "redis-n8n-queue.service"];
+        partOf = ["n8n-main.service"];
         script =
           scriptTemplate
           + ''
