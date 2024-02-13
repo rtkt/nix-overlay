@@ -61,7 +61,7 @@ with lib; let
     path = [pkgs.nodejs_20 pkgs.n8n];
     serviceConfig = mkMerge [
       {
-        Type = "simple";
+        Type = "exec";
         Restart = "on-failure";
         StateDirectory = "n8n";
         CPUSchedulingPolicy = "batch";
