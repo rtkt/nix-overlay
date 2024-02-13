@@ -138,6 +138,11 @@ in {
         options = {
           enable = mkEnableOption "queue execution mode";
 
+          workers = mkOption {
+            description = "Number of N8N worker processes to launch";
+            type = types.int;
+            default = 4;
+          };
           redis = mkOption {
             description = "Redis queue settings";
             type = types.submodule {
@@ -204,7 +209,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.users = mkIf (builtins.isString cfg.user) {
+    users.users = {
       "${cfg.user}" = {
         isSystemUser = true;
         home = "/var/lib/n8n";
@@ -216,7 +221,7 @@ in {
         shell = "${pkgs.shadow}/bin/nologin";
       };
     };
-    users.groups = mkIf (builtins.isString cfg.user) {
+    users.groups = {
       "${
         if (builtins.isString cfg.group)
         then cfg.group
@@ -250,7 +255,11 @@ in {
           script =
             scriptTemplate
             + ''
-              ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker & ${pkgs.n8n}/bin/n8n worker
+              COUNTER=0
+              while [ $COUNTER -lt ${builtins.toString cfg.queue.workers} ]; do
+                ${pkgs.n8n}/bin/n8n worker &
+                let COUNTER=COUNTER+1
+              done
             '';
         }
         // serviceTemplate);
