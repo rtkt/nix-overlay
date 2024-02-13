@@ -53,6 +53,32 @@ in {
       default = null;
       description = "N8N's encryption key that is exported in N8N_ENCRYPTION_KEY environment variable. See https://docs.n8n.io/hosting/environment-variables/environment-variables/#deployment for more";
     };
+    queue = mkOption {
+      description = "N8N's queue execution mode settings";
+      type = types.submodule {
+        enable = mkEnableOption "queue execution mode";
+
+        redis = mkOption {
+          description = "Redis queue settings";
+          type = types.submodule {
+            host = mkOption {
+              description = "Address of the host that runs Redis queue DB";
+              default = "localhost";
+              type = types.str;
+            };
+            port = mkOption {
+              description = "Port of the Redis";
+              type = types.int;
+            };
+            passwordFile = mkOption {
+              description = "Path to the file with password for Redis";
+              type = types.nullOr types.str;
+              default = null;
+            };
+          };
+        };
+      };
+    };
     smtp = mkOption {
       description = "SMTP settings. Enables user management";
       type = types.submodule {
@@ -137,6 +163,13 @@ in {
                   N8N_SMTP_SSL = "false";
                 }
               )
+              (
+                mkIf (cfg.queue.enable) {
+                  EXECUTIONS_MODE = "queue";
+                  QUEUE_BULL_REDIS_HOST = "${cfg.queue.redis.host}";
+                  QUEUE_BULL_REDIS_PORT = "${builtins.toString cfg.queue.redis.port}";
+                }
+              )
             ]
           )
         )
@@ -155,6 +188,10 @@ in {
 
         ${optionalString (cfg.key != null) ''
           export N8N_ENCRYPTION_KEY="$(cat ${cfg.key})"
+        ''}
+
+        ${optionalString (cfg.queue.enable == true && cfg.queue.redis.passwordFile != null) ''
+          export QUEUE_BULL_REDIS_PASSWORD="$(cat ${cfg.queue.redis.passwordFile})"
         ''}
         ${pkgs.n8n}/bin/n8n
       '';
