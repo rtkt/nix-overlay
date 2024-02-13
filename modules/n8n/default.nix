@@ -193,7 +193,11 @@ in {
         ${optionalString (cfg.queue.enable == true && cfg.queue.redis.passwordFile != null) ''
           export QUEUE_BULL_REDIS_PASSWORD="$(cat ${cfg.queue.redis.passwordFile})"
         ''}
-        ${pkgs.n8n}/bin/n8n
+        ${pkgs.n8n}/bin/n8n; \
+        ${pkgs.n8n}/bin/n8n worker; \
+        ${pkgs.n8n}/bin/n8n worker; \
+        ${pkgs.n8n}/bin/n8n worker; \
+        ${pkgs.n8n}/bin/n8n worker
       '';
       serviceConfig = mkMerge [
         {
