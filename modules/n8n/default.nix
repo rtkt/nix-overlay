@@ -6,6 +6,90 @@
 }:
 with lib; let
   cfg = config.services.n8n-custom;
+  scriptTemplate = ''
+    ${optionalString (cfg.smtp.user != null && cfg.smtp.passwordFile != null) ''
+      export N8N_SMTP_USER="${cfg.smtp.user}"
+      export N8N_SMTP_PASS="$(cat ${cfg.smtp.passwordFile})"
+    ''}
+
+    ${optionalString (cfg.key != null) ''
+      export N8N_ENCRYPTION_KEY="$(cat ${cfg.key})"
+    ''}
+
+    ${optionalString (cfg.queue.enable == true && cfg.queue.redis.passwordFile != null) ''
+      export QUEUE_BULL_REDIS_PASSWORD="$(cat ${cfg.queue.redis.passwordFile})"
+    ''}
+  '';
+  serviceTemplate = {
+    wantedBy = ["multi-user.target"];
+    environment = mkMerge [
+      cfg.settings
+      (
+        mkIf cfg.smtp.enable (
+          mkMerge [
+            {
+              N8N_EMAIL_MODE = "smtp";
+              N8N_SMTP_HOST = "${cfg.smtp.host}";
+              N8N_SMTP_SENDER = "${cfg.smtp.sender}";
+            }
+            (
+              mkIf (builtins.isInt cfg.smtp.port) {
+                N8N_SMTP_PORT = "${builtins.toString cfg.smtp.port}";
+              }
+            )
+            (
+              mkIf (!cfg.smtp.ssl) {
+                N8N_SMTP_SSL = "false";
+              }
+            )
+            (
+              mkIf (cfg.queue.enable) {
+                EXECUTIONS_MODE = "queue";
+                QUEUE_BULL_REDIS_HOST = "${cfg.queue.redis.host}";
+                QUEUE_BULL_REDIS_PORT = "${builtins.toString cfg.queue.redis.port}";
+              }
+            )
+          ]
+        )
+      )
+      (
+        mkIf (builtins.isInt cfg.port) {
+          N8N_PORT = "${builtins.toString cfg.port}";
+        }
+      )
+    ];
+    path = [pkgs.nodejs_20 pkgs.n8n];
+    serviceConfig = mkMerge [
+      {
+        Type = "simple";
+        Restart = "on-failure";
+        StateDirectory = "n8n";
+        CPUSchedulingPolicy = "batch";
+
+        NoNewPrivileges = "yes";
+        PrivateTmp = "yes";
+        PrivateDevices = "yes";
+        DevicePolicy = "closed";
+        ProtectSystem = "strict";
+        ProtectHome = "read-only";
+        ProtectControlGroups = "yes";
+        ProtectKernelModules = "yes";
+        ProtectKernelTunables = "yes";
+        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+        RestrictNamespaces = "yes";
+        RestrictRealtime = "yes";
+        RestrictSUIDSGID = "yes";
+        MemoryDenyWriteExecute = "no";
+        LockPersonality = "yes";
+        User = "${cfg.user}";
+      }
+      (
+        mkIf (builtins.isInt cfg.quota) {
+          CPUQuota = "${builtins.toString cfg.quota}%";
+        }
+      )
+    ];
+  };
 in {
   options.services.n8n-custom = {
     enable = mkEnableOption "n8n custom server";
@@ -33,14 +117,9 @@ in {
       default = null;
       description = "CPU quota in percents";
     };
-    memorymax = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = "Maximum amount of RAM. See man systemd.resource-control";
-    };
     user = mkOption {
-      type = types.nullOr types.str;
-      default = null;
+      type = types.str;
+      default = "n8n";
       description = "Name of the N8N service user. If it's not specified then systemd will create dynamic user";
     };
     group = mkOption {
@@ -150,109 +229,29 @@ in {
       requirePassFile = cfg.queue.redis.passwordFile;
       port = cfg.queue.redis.port;
     };
-    systemd.services.n8n-custom = {
-      description = "N8N service";
-      after = ["network.target"];
-      wantedBy = ["multi-user.target"];
-      environment = mkMerge [
-        cfg.settings
-        (
-          mkIf cfg.smtp.enable (
-            mkMerge [
-              {
-                N8N_EMAIL_MODE = "smtp";
-                N8N_SMTP_HOST = "${cfg.smtp.host}";
-                N8N_SMTP_SENDER = "${cfg.smtp.sender}";
-              }
-              (
-                mkIf (builtins.isInt cfg.smtp.port) {
-                  N8N_SMTP_PORT = "${builtins.toString cfg.smtp.port}";
-                }
-              )
-              (
-                mkIf (!cfg.smtp.ssl) {
-                  N8N_SMTP_SSL = "false";
-                }
-              )
-              (
-                mkIf (cfg.queue.enable) {
-                  EXECUTIONS_MODE = "queue";
-                  QUEUE_BULL_REDIS_HOST = "${cfg.queue.redis.host}";
-                  QUEUE_BULL_REDIS_PORT = "${builtins.toString cfg.queue.redis.port}";
-                }
-              )
-            ]
-          )
-        )
-        (
-          mkIf (builtins.isInt cfg.port) {
-            N8N_PORT = "${builtins.toString cfg.port}";
-          }
-        )
-      ];
-      path = [pkgs.nodejs_20 pkgs.n8n];
-      script = ''
-        ${optionalString (cfg.smtp.user != null && cfg.smtp.passwordFile != null) ''
-          export N8N_SMTP_USER="${cfg.smtp.user}"
-          export N8N_SMTP_PASS="$(cat ${cfg.smtp.passwordFile})"
-        ''}
+    systemd.services.n8n-main =
+      {
+        description = "N8N main service";
+        after = ["network.target"];
 
-        ${optionalString (cfg.key != null) ''
-          export N8N_ENCRYPTION_KEY="$(cat ${cfg.key})"
-        ''}
-
-        ${optionalString (cfg.queue.enable == true && cfg.queue.redis.passwordFile != null) ''
-          export QUEUE_BULL_REDIS_PASSWORD="$(cat ${cfg.queue.redis.passwordFile})"
-        ''}
-        ${pkgs.n8n}/bin/n8n; \
-        ${pkgs.n8n}/bin/n8n worker; \
-        ${pkgs.n8n}/bin/n8n worker; \
-        ${pkgs.n8n}/bin/n8n worker; \
-        ${pkgs.n8n}/bin/n8n worker
-      '';
-      serviceConfig = mkMerge [
-        {
-          Type = "simple";
-          Restart = "on-failure";
-          StateDirectory = "n8n";
-          CPUSchedulingPolicy = "batch";
-
-          NoNewPrivileges = "yes";
-          PrivateTmp = "yes";
-          PrivateDevices = "yes";
-          DevicePolicy = "closed";
-          ProtectSystem = "strict";
-          ProtectHome = "read-only";
-          ProtectControlGroups = "yes";
-          ProtectKernelModules = "yes";
-          ProtectKernelTunables = "yes";
-          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-          RestrictNamespaces = "yes";
-          RestrictRealtime = "yes";
-          RestrictSUIDSGID = "yes";
-          MemoryDenyWriteExecute = "no";
-          LockPersonality = "yes";
-        }
-        (
-          mkIf (builtins.isInt cfg.quota) {
-            CPUQuota = "${builtins.toString cfg.quota}%";
-          }
-        )
-        (
-          mkIf (builtins.isString cfg.memorymax) {
-            MemoryMax = "${cfg.memorymax}";
-          }
-        )
-        (
-          if (builtins.isString cfg.user)
-          then {
-            User = "${cfg.user}";
-          }
-          else {
-            DynamicUser = "true";
-          }
-        )
-      ];
-    };
+        script =
+          scriptTemplate
+          + ''
+            ${pkgs.n8n}/bin/n8n
+          '';
+      }
+      // serviceTemplate;
+    systemd.services.n8n-workers =
+      mkIf cfg.queue.enable
+      {
+        description = "N8N workers service";
+        after = ["network.target" "n8n-main.service" "redis-n8n-queue.service"];
+        script =
+          scriptTemplate
+          + ''
+            ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker;
+          '';
+      }
+      // serviceTemplate;
   };
 }
