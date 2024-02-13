@@ -243,16 +243,16 @@ in {
       // serviceTemplate;
     systemd.services.n8n-workers =
       mkIf cfg.queue.enable
-      {
-        description = "N8N workers service";
-        after = ["network.target" "redis-n8n-queue.service"];
-        partOf = ["n8n-main.service"];
-        script =
-          scriptTemplate
-          + ''
-            ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker;
-          '';
-      }
-      // serviceTemplate;
+      ({
+          description = "N8N workers service";
+          after = ["network.target" "redis-n8n-queue.service"];
+          partOf = ["n8n-main.service"];
+          script =
+            scriptTemplate
+            + ''
+              ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker; ${pkgs.n8n}/bin/n8n worker;
+            '';
+        }
+        // serviceTemplate);
   };
 }
