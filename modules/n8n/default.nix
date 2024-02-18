@@ -67,20 +67,20 @@ with lib; let
         CPUSchedulingPolicy = "batch";
 
         NoNewPrivileges = "yes";
-        PrivateTmp = "yes";
-        PrivateDevices = "yes";
-        DevicePolicy = "closed";
-        ProtectSystem = "strict";
+        # PrivateTmp = "yes";
+        # PrivateDevices = "yes";
+        # DevicePolicy = "closed";
+        # ProtectSystem = "strict";
         ProtectHome = "read-only";
-        ProtectControlGroups = "yes";
+        # ProtectControlGroups = "yes";
         ProtectKernelModules = "yes";
         ProtectKernelTunables = "yes";
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-        RestrictNamespaces = "yes";
+        # RestrictNamespaces = "yes";
         RestrictRealtime = "yes";
         RestrictSUIDSGID = "yes";
         MemoryDenyWriteExecute = "no";
-        LockPersonality = "yes";
+        # LockPersonality = "yes";
         User = "${cfg.user}";
       }
       (
