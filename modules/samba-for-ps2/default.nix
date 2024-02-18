@@ -22,17 +22,9 @@ with lib; let
     ));
   configFile = pkgs.writeText "smb.conf" ''
     [global]
-      workgroup = WORKGROUP
-      map to guest = Bad Password
-      guest account = nobody
-      socket options = TCP_NODELAY TCP_KEEPIDLE=20 IPTOS_LOWDELAY SO_KEEPALIVE
-      lanman auth = no
-      server min protocol = NT1
-      server signing = disabled
-      lm announce = no
-      smb ports = ${cfg.port}
+    ${cfg.globalConfig}
 
-      ${smbToString (map shareConfig (attrNames cfg.shares))}
+    ${smbToString (map shareConfig (attrNames cfg.shares))}
   '';
   daemonService = appName: args: {
     description = "Minimal Samba Service Daemon for Playstation 2 ${appName}";
@@ -82,6 +74,21 @@ in {
       port = mkOption {
         type = types.str;
         description = "Which port to use for this service?";
+      };
+      globalConfig = mkOption {
+        type = types.lines;
+        description = "Global samba config";
+        default = ''
+          workgroup = WORKGROUP
+          map to guest = Bad Password
+          guest account = nobody
+          socket options = TCP_NODELAY TCP_KEEPIDLE=20 IPTOS_LOWDELAY SO_KEEPALIVE
+          lanman auth = no
+          server min protocol = NT1
+          server signing = disabled
+          lm announce = no
+          smb ports = ${cfg.port}
+        '';
       };
       shares = mkOption {
         default = {};
