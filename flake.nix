@@ -24,6 +24,10 @@
       gnupg-minimal = prev.gnupg.override {
         enableMinimal = true;
       };
+      micro-nogui = prev.micro.override {
+      	withXclip = false;
+      	withWlclip = false;
+      };
     };
     nixosModules = {
       n8n = import ./modules/n8n;
