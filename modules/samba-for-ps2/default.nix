@@ -37,9 +37,12 @@ with lib; let
     serviceConfig = {
       ExecStart = "${pkgs.samba-for-ps2}/sbin/${appName} --foreground --no-process-group ${args}";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
       LimitNOFILE = 16384;
       PIDFile = "/run/${appName}.pid";
       Type = "exec";
+      User = "${cfg.user}";
     };
     unitConfig.RequiresMountsFor = "/var/lib/samba-for-ps2";
 
@@ -75,6 +78,16 @@ in {
         type = types.str;
         description = "Which port to use for this service?";
       };
+      user = mkOption {
+        type = types.str;
+        description = "User which runs the Samba daemon";
+        default = "samba-for-ps2";
+      };
+      group = mkOption {
+        type = types.str;
+        description = "Group under which samba-for-ps2 runs";
+        default = "${cfg.user}";
+      };
       globalConfig = mkOption {
         type = types.lines;
         description = "Global samba config";
@@ -107,6 +120,13 @@ in {
         );
       }
       (mkIf cfg.enable {
+        system.activationScripts.set-permissions-for-smbd = ''
+          chown -R ${cfg.user}:${cfg.group} /var/lock/samba-for-ps2
+          chown -R ${cfg.user}:${cfg.group} /var/log/samba-for-ps2
+          chown -R ${cfg.user}:${cfg.group} /var/cache/samba-for-ps2
+          chown -R ${cfg.user}:${cfg.group} /var/run/samba-for-ps2
+          chown -R ${cfg.user}:${cfg.group} /var/lib/samba-for-ps2
+        '';
         systemd = {
           targets.samba-for-ps2 = {
             description = "Minimal Samba Server for Playstation 2";
@@ -117,21 +137,30 @@ in {
             samba-for-ps2-smbd = daemonService "smbd" "";
           };
           tmpfiles.rules = [
-            "d /var/lock/samba-for-ps2 - - - - -"
-            "d /var/log/samba-for-ps2 - - - - -"
-            "d /var/cache/samba-for-ps2 - - - - -"
-            "d /var/lib/samba-for-ps2/private - - - - -"
+            "d /var/lock/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
+            "d /var/log/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
+            "d /var/cache/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
+            "d /var/lib/samba-for-ps2/private 1700 ${cfg.user} ${cfg.group} - -"
           ];
         };
-      })
-      (mkIf cfg.openFirewall {
-        networking.firewall.extraCommands = ''
+        networking.firewall.extraCommands = mkIf cfg.openFirewall ''
           iptables -A INPUT -p tcp --destination-port ${cfg.port} ${
             if cfg.restrictAccess
             then "-m mac --mac-source ${cfg.allowedDevice}"
             else ""
           } -j ACCEPT
         '';
+        users = {
+          users."${cfg.user}" = {
+            isSystemUser = true;
+            description = "Samba-for-ps2 service account";
+            home = "/var/lib/samba-for-ps2";
+            createHome = true;
+            shell = "${pkgs.shadow}/bin/nologin";
+            group = "${cfg.group}";
+          };
+          groups."${cfg.group}" = {};
+        };
       })
     ];
 }

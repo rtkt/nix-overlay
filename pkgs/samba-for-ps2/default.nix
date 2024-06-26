@@ -36,6 +36,7 @@ with lib;
       ./4.x-no-persistent-install-dynconfig.patch
       ./4.x-fix-makeflags-parsing.patch
       ./build-find-pre-built-heimdal-build-tools-in-case-of-.patch
+      ./0001-Removed-messing-with-file-limits.patch
       (fetchpatch {
         # workaround for https://github.com/NixOS/nixpkgs/issues/303436
         name = "samba-reproducible-builds.patch";
