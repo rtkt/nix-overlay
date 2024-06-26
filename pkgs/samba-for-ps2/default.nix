@@ -3,6 +3,7 @@
   stdenv,
   buildPackages,
   fetchurl,
+  fetchpatch,
   wafHook,
   pkg-config,
   bison,
@@ -20,11 +21,11 @@
 with lib;
   stdenv.mkDerivation rec {
     pname = "samba-for-ps2";
-    version = "4.17.4";
+    version = "4.20.2";
 
     src = fetchurl {
       url = "mirror://samba/pub/samba/stable/samba-${version}.tar.gz";
-      sha256 = "sha256-wFEgedtMrHB8zqTBiuu9ay6zrPbpBzXn9kWjJr4fRTc=";
+      sha256 = "sha256-+Wn/7VjM8+hcu8wOM6FybQJcK0D0KmU7ESW4K5LS4OU=";
     };
 
     outputs = ["out" "dev" "man"];
@@ -35,6 +36,12 @@ with lib;
       ./4.x-no-persistent-install-dynconfig.patch
       ./4.x-fix-makeflags-parsing.patch
       ./build-find-pre-built-heimdal-build-tools-in-case-of-.patch
+      (fetchpatch {
+        # workaround for https://github.com/NixOS/nixpkgs/issues/303436
+        name = "samba-reproducible-builds.patch";
+        url = "https://gitlab.com/raboof/samba/-/commit/9995c5c234ece6888544cdbe6578d47e83dea0b5.patch";
+        hash = "sha256-TVKK/7wGsfP1pVf8o1NwazobiR8jVJCCMj/FWji3f2A=";
+      })
     ];
 
     nativeBuildInputs = [
@@ -170,6 +177,5 @@ with lib;
       description = "The standard Windows interoperability suite of programs for Linux and Unix";
       license = licenses.gpl3;
       platforms = platforms.unix;
-      # maintainers = with maintainers; [aneeshusa];
     };
   }
