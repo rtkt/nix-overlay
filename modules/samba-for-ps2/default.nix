@@ -10,6 +10,8 @@ with lib; let
     then boolToString x
     else toString x;
   cfg = config.services.samba-for-ps2;
+  genCommands = devices: lib.concatStrings (lib.forEach devices (device: "iptables -A INPUT -p tcp --destinatio
+n-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
   samba-for-ps2 = cfg.package;
   genFilesSettings = mode: {
     d = {
@@ -84,8 +86,9 @@ in {
         description = "Restrict access to network port only specific device?";
       };
       allowedDevices = mkOption {
-        type = types.nullOr (types.listOf types.str);
-        description = "MAC address of the allowed device";
+        type = types.nullOr types.listOf types.str;
+        description = "MAC addresses of the allowed devices";
+        default = null;
       };
       port = mkOption {
         type = types.str;
@@ -109,7 +112,6 @@ in {
           map to guest = Bad Password
           guest account = nobody
           socket options = TCP_NODELAY TCP_KEEPIDLE=20 IPTOS_LOWDELAY SO_KEEPALIVE
-          lanman auth = no
           server min protocol = NT1
           server signing = disabled
           lm announce = no
@@ -164,10 +166,10 @@ in {
           groups."${cfg.group}" = {};
         };
       })
-      (mkIf (cfg.enable && cfg.openFirewall && cfg.allowedDevices == null) {
-        networking.firewall.allowedTCPPorts = [cfg.port];
+      (mkIf (cfg.openFirewall && cfg.allowedDevices == null) {
+        networking.firewall.allowedTCPPorts = [${cfg.port}];
       })
-      (mkIf (cfg.enable && cfg.openFirewall && cfg.allowedDevices != null) {
+      (mkIf (cfg.openFirewall && cfg.allowedDevices != null) {
         networking.firewall.extraCommands = genCommands cfg.allowedDevices;
       })
     ];
