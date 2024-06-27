@@ -11,6 +11,18 @@ with lib; let
     else toString x;
   cfg = config.services.samba-for-ps2;
   samba-for-ps2 = cfg.package;
+  genFilesSettings = mode: {
+    d = {
+      user = cfg.user;
+      group = cfg.group;
+      mode = "${builtins.toString mode}";
+    };
+    Z = {
+      user = cfg.user;
+      group = cfg.group;
+      mode = "${builtins.toString mode}";
+    };
+  };
   genCommands = devices: lib.concatStrings (lib.forEach devices (device: "iptables -A INPUT -p tcp --destination-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
   shareConfig = name: let
     share = getAttr name cfg.shares;
@@ -121,13 +133,6 @@ in {
         );
       }
       (mkIf cfg.enable {
-        system.activationScripts.set-permissions-for-smbd = ''
-          chown -R ${cfg.user}:${cfg.group} /var/lock/samba-for-ps2
-          chown -R ${cfg.user}:${cfg.group} /var/log/samba-for-ps2
-          chown -R ${cfg.user}:${cfg.group} /var/cache/samba-for-ps2
-          chown -R ${cfg.user}:${cfg.group} /var/run/samba-for-ps2
-          chown -R ${cfg.user}:${cfg.group} /var/lib/samba-for-ps2
-        '';
         systemd = {
           targets.samba-for-ps2 = {
             description = "Minimal Samba Server for Playstation 2";
@@ -137,12 +142,15 @@ in {
           services = {
             samba-for-ps2-smbd = daemonService "smbd" "";
           };
-          tmpfiles.rules = [
-            "d /var/lock/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
-            "d /var/log/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
-            "d /var/cache/samba-for-ps2 1700 ${cfg.user} ${cfg.group} - -"
-            "d /var/lib/samba-for-ps2/private 1700 ${cfg.user} ${cfg.group} - -"
-          ];
+
+          tmpfiles.settings."10-samba-for-ps2" = {
+            "/var/lock/samba-for-ps2" = genFilesSettings 0755;
+            "/var/log/samba" = genFilesSettings 0700;
+            "/var/cache/samba-for-ps2" = genFilesSettings 0700;
+            "/var/lib/samba-for-ps2" = genFilesSettings 0700;
+            "/var/lib/samba-for-ps2/private" = genFilesSettings 0700;
+            "/var/run/samba-for-ps2" = genFilesSettings 0700;
+          };
         };
         users = {
           users."${cfg.user}" = {
