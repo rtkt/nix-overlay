@@ -2,14 +2,23 @@
   description = "rtkt's overlay";
   inputs = {
     nixpkgs.url = "flake:nixpkgs/nixos-unstable";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-
   outputs = {
     self,
     nixpkgs,
+    pre-commit-hooks,
   }: let
     system = "x86_64-linux";
   in {
+    checks.pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
+      src = ./.;
+      hooks.alejandra.enable = true;
+    };
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     overlays.default = final: prev: let
       localPkgs = import ./default.nix {pkgs = final;};
     in {
@@ -25,8 +34,8 @@
         enableMinimal = true;
       };
       micro-nogui = prev.micro.override {
-      	withXclip = false;
-      	withWlclip = false;
+        withXclip = false;
+        withWlclip = false;
       };
     };
     nixosModules = {
@@ -42,6 +51,27 @@
         inherit system;
       };
     };
-    devShells.${system}.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix {};
+    devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
+      inherit (self.checks.pre-commit-check) shellHook;
+      inherit nixpkgs;
+      buildInputs = self.checks.pre-commit-check.enabledPackages;
+      nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [
+        cmake
+        python3Packages.python
+        wafHook
+        pkg-config
+        bison
+        flex
+        perl
+        perl.pkgs.ParseYapp
+        perl.pkgs.JSON
+        libxslt
+        buildPackages.stdenv.cc
+        docbook_xsl
+        docbook_xml_dtd_45
+        rpcsvc-proto
+        nodePackages.node-pre-gyp
+      ];
+    };
   };
 }
