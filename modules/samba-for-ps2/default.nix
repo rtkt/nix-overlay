@@ -84,9 +84,9 @@ in {
         description = "Restrict access to network port only specific device?";
       };
       allowedDevices = mkOption {
-        type = types.nullOr types.listOf types.str;
+        type = types.listOf types.str;
         description = "MAC addresses of the allowed devices";
-        default = null;
+        default = [];
       };
       port = mkOption {
         type = types.str;
