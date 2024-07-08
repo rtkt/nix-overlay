@@ -10,8 +10,7 @@ with lib; let
     then boolToString x
     else toString x;
   cfg = config.services.samba-for-ps2;
-  genCommands = devices: lib.concatStrings (lib.forEach devices (device: "iptables -A INPUT -p tcp --destinatio
-n-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
+  genCommands = devices: concatStrings (forEach devices (device: "iptables -A INPUT -p tcp --destination-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
   samba-for-ps2 = cfg.package;
   genFilesSettings = mode: {
     d = {
@@ -25,7 +24,6 @@ n-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
       mode = "${builtins.toString mode}";
     };
   };
-  genCommands = devices: lib.concatStrings (lib.forEach devices (device: "iptables -A INPUT -p tcp --destination-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
   shareConfig = name: let
     share = getAttr name cfg.shares;
   in
@@ -151,7 +149,7 @@ in {
             "/var/cache/samba-for-ps2" = genFilesSettings 0700;
             "/var/lib/samba-for-ps2" = genFilesSettings 0700;
             "/var/lib/samba-for-ps2/private" = genFilesSettings 0700;
-            "/var/run/samba-for-ps2" = genFilesSettings 0700;
+            "/run/samba-for-ps2" = genFilesSettings 0700;
           };
         };
         users = {
@@ -167,7 +165,7 @@ in {
         };
       })
       (mkIf (cfg.openFirewall && cfg.allowedDevices == null) {
-        networking.firewall.allowedTCPPorts = [${cfg.port}];
+        networking.firewall.allowedTCPPorts = [cfg.port];
       })
       (mkIf (cfg.openFirewall && cfg.allowedDevices != null) {
         networking.firewall.extraCommands = genCommands cfg.allowedDevices;
