@@ -5,13 +5,13 @@
   makeWrapper,
 }: let
   pname = "anytype";
-  version = "0.39.0";
+  version = "0.41.1";
   name = "Anytype-${version}";
   nameExecutable = pname;
   src = fetchurl {
     url = "https://github.com/anyproto/anytype-ts/releases/download/v${version}/${name}.AppImage";
     name = "Anytype-${version}.AppImage";
-    sha256 = "sha256-Sgrgwp8yZGMLq25tHuoQquNjHTEbRPmFqzpMHnjq7oI=";
+    sha256 = "sha256-z/Htqq2HgCKNPzF81/nvLK/32KuMUYdHRTQbM8hZSIw=";
   };
   appimageContents = appimageTools.extractType2 {inherit name src;};
 in
@@ -40,7 +40,7 @@ in
       description = "P2P note-taking tool";
       homepage = "https://anytype.io/";
       license = licenses.unfree;
-      maintainers = with maintainers; [running-grass];
+      # maintainers = with maintainers; [running-grass];
       platforms = ["x86_64-linux"];
     };
   }
