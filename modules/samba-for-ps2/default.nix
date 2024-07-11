@@ -145,7 +145,7 @@ in {
 
           tmpfiles.settings."10-samba-for-ps2" = {
             "/var/lock/samba-for-ps2" = genFilesSettings 0755;
-            "/var/log/samba" = genFilesSettings 0700;
+            "/var/log/samba-for-ps2" = genFilesSettings 0700;
             "/var/cache/samba-for-ps2" = genFilesSettings 0700;
             "/var/lib/samba-for-ps2" = genFilesSettings 0700;
             "/var/lib/samba-for-ps2/private" = genFilesSettings 0700;
