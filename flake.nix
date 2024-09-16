@@ -37,6 +37,11 @@
         withXclip = false;
         withWlclip = false;
       };
+      vivaldi-plasma6 = prev.vivaldi.overrideAttrs (oldAttrs: {
+        dontWrapQtApps = false;
+        dontPatchELF = true;
+        nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [nixpkgs.legacyPackages.${system}.kdePackages.wrapQtAppsHook];
+      });
     };
     nixosModules = {
       n8n = import ./modules/n8n;
