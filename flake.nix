@@ -33,10 +33,6 @@
       gnupg-minimal = prev.gnupg.override {
         enableMinimal = true;
       };
-      micro-nogui = prev.micro.override {
-        withXclip = false;
-        withWlclip = false;
-      };
       vivaldi-plasma6 = prev.vivaldi.overrideAttrs (oldAttrs: {
         dontWrapQtApps = false;
         dontPatchELF = true;
