@@ -152,6 +152,8 @@ in {
             "/run/samba-for-ps2" = genFilesSettings 0700;
           };
         };
+      })
+      (mkIf (cfg.user != "root") {
         users = {
           users."${cfg.user}" = {
             isSystemUser = true;
