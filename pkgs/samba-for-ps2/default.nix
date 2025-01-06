@@ -19,13 +19,13 @@
   nixosTests,
 }:
 with lib;
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation (finalAttrs: {
     pname = "samba-for-ps2";
-    version = "4.20.2";
+    version = "4.20.4";
 
     src = fetchurl {
-      url = "mirror://samba/pub/samba/stable/samba-${version}.tar.gz";
-      sha256 = "sha256-+Wn/7VjM8+hcu8wOM6FybQJcK0D0KmU7ESW4K5LS4OU=";
+      url = "https://download.samba.org/pub/samba/stable/samba-${finalAttrs.version}.tar.gz";
+      sha256 = "sha256-OpLpfq6zRbazIjL1A+FNNPA6eqZMRR/owlihG72pCOU=";
     };
 
     outputs = ["out" "dev" "man"];
@@ -179,4 +179,4 @@ with lib;
       license = licenses.gpl3;
       platforms = platforms.unix;
     };
-  }
+  })
