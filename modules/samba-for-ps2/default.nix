@@ -50,12 +50,9 @@ with lib; let
     serviceConfig = {
       ExecStart = "${pkgs.samba-for-ps2}/sbin/${appName} --foreground --no-process-group ${args}";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-      AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
       LimitNOFILE = 16384;
       PIDFile = "/run/${appName}.pid";
       Type = "exec";
-      User = "${cfg.user}";
     };
     unitConfig.RequiresMountsFor = "/var/lib/samba-for-ps2";
 
@@ -95,7 +92,7 @@ in {
       user = mkOption {
         type = types.str;
         description = "User which runs the Samba daemon";
-        default = "samba-for-ps2";
+        default = "root";
       };
       group = mkOption {
         type = types.str;
@@ -110,6 +107,7 @@ in {
           map to guest = Bad Password
           guest account = nobody
           socket options = TCP_NODELAY TCP_KEEPIDLE=20 IPTOS_LOWDELAY SO_KEEPALIVE
+          lanman auth = no
           server min protocol = NT1
           server signing = disabled
           lm announce = no
@@ -142,7 +140,6 @@ in {
           services = {
             samba-for-ps2-smbd = daemonService "smbd" "";
           };
-
           tmpfiles.settings."10-samba-for-ps2" = {
             "/var/lock/samba-for-ps2" = genFilesSettings 0755;
             "/var/log/samba-for-ps2" = genFilesSettings 0700;
@@ -151,19 +148,6 @@ in {
             "/var/lib/samba-for-ps2/private" = genFilesSettings 0700;
             "/run/samba-for-ps2" = genFilesSettings 0700;
           };
-        };
-      })
-      (mkIf (cfg.user != "root") {
-        users = {
-          users."${cfg.user}" = {
-            isSystemUser = true;
-            description = "Samba-for-ps2 service account";
-            home = "/var/lib/samba-for-ps2";
-            createHome = true;
-            shell = "${pkgs.shadow}/bin/nologin";
-            group = "${cfg.group}";
-          };
-          groups."${cfg.group}" = {};
         };
       })
       (mkIf (cfg.openFirewall && cfg.allowedDevices == null) {
