@@ -14,13 +14,13 @@ with lib; let
   samba-for-ps2 = cfg.package;
   genFilesSettings = mode: {
     d = {
-      user = cfg.user;
-      group = cfg.group;
+      user = "root";
+      group = "root";
       mode = "${builtins.toString mode}";
     };
     Z = {
-      user = cfg.user;
-      group = cfg.group;
+      user = "root";
+      group = "root";
       mode = "${builtins.toString mode}";
     };
   };
@@ -55,7 +55,6 @@ with lib; let
       Type = "exec";
     };
     unitConfig.RequiresMountsFor = "/var/lib/samba-for-ps2";
-
     restartTriggers = [configFile];
   };
 in {
@@ -85,34 +84,12 @@ in {
         description = "MAC addresses of the allowed devices";
         default = [];
       };
-      port = mkOption {
-        type = types.str;
-        description = "Which port to use for this service?";
-      };
-      user = mkOption {
-        type = types.str;
-        description = "User which runs the Samba daemon";
-        default = "root";
-      };
-      group = mkOption {
-        type = types.str;
-        description = "Group under which samba-for-ps2 runs";
-        default = "${cfg.user}";
-      };
       globalConfig = mkOption {
         type = types.lines;
         description = "Global samba config";
-        default = ''
-          workgroup = WORKGROUP
-          map to guest = Bad Password
-          guest account = nobody
-          socket options = TCP_NODELAY TCP_KEEPIDLE=20 IPTOS_LOWDELAY SO_KEEPALIVE
-          lanman auth = no
-          server min protocol = NT1
-          server signing = disabled
-          lm announce = no
-          smb ports = ${cfg.port}
-        '';
+      };
+      port = mkOption {
+        type = types.str;
       };
       shares = mkOption {
         default = {};
