@@ -5,4 +5,5 @@
   n8n = pkgs.callPackage ./pkgs/n8n {};
   oplpctools = pkgs.callPackage ./pkgs/oplpctools {};
   nginx-dns = pkgs.callPackage ./pkgs/nginx-dns {};
+  cutelyst = pkgs.callPackage ./pkgs/cutelyst {};
 }
