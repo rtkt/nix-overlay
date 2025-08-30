@@ -6,5 +6,5 @@
   oplpctools = pkgs.callPackage ./pkgs/oplpctools {};
   nginx-dns = pkgs.callPackage ./pkgs/nginx-dns {};
   cutelee = pkgs.callPackage ./pkgs/cutelee {};
-  cutelyst = pkgs.callPackage ./pkgs/cutelyst {};
+  cutelyst = pkgs.callPackage ./pkgs/cutelyst {inherit cutelee;};
 }
