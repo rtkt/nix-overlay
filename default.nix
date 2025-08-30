@@ -7,4 +7,8 @@
   nginx-dns = pkgs.callPackage ./pkgs/nginx-dns {};
   cutelee = pkgs.callPackage ./pkgs/cutelee {};
   cutelyst = pkgs.callPackage ./pkgs/cutelyst {inherit cutelee;};
+  virtlyst = pkgs.callPackage ./pkgs/virtlyst {
+    inherit cutelyst;
+    inherit cutelee;
+  };
 }
