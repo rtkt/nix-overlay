@@ -22,7 +22,7 @@
     overlays.default = final: prev: let
       localPkgs = import ./default.nix {pkgs = final;};
     in {
-      inherit (localPkgs) samba-for-ps2 tcpflow n8n oplpctools nginx-dns anytype;
+      inherit (localPkgs) samba-for-ps2 tcpflow n8n oplpctools nginx-dns anytype cutelyst cutelee virtlyst;
       google-authenticator =
         (prev.google-authenticator.overrideAttrs (finalAttrs: previousAttrs: {
           preConfigure = null;
