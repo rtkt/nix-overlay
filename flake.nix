@@ -45,6 +45,7 @@
       samba-for-ps2 = import ./modules/samba-for-ps2;
       sshguard-custom = import ./modules/sshguard-custom;
       nginx-dns = import ./modules/nginx-dns;
+      virtlyst = import ./modules/virtlyst;
     };
 
     packages.${system} = import ./default.nix {
