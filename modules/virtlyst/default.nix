@@ -70,7 +70,7 @@ in {
           then "root"
           else cfg.group;
         Type = "simple";
-        ExecStart = "${pkgs.cutelyst}/bin/cutelystd4-qt6 --application ${pkgs.virtlyst}/lib/libVirtlyst.so --ini ${ini} --static-map /static=root/static --http-socket localhost:${builtins.toString cfg.port}";
+        ExecStart = "${pkgs.cutelyst}/bin/cutelystd4-qt6 --application ${pkgs.virtlyst}/lib/libVirtlyst.so --chdir2 ${pkgs.virtlyst} --ini ${ini} --static-map /static=root/static --http-socket localhost:${builtins.toString cfg.port} --master";
       };
     };
     users = lib.mkIf (! cfg.runAsRoot) {
