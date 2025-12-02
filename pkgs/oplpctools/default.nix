@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Qn7V/N2K+0BQUXj9lirZsWzTvXcxqbBOTOLYS4rmuUk=";
   };
 
+  patches = [
+    ./add-casting.patch
+  ];
+
   nativeBuildInputs = [
     qt6.wrapQtAppsHook
     cmake
