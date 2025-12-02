@@ -5,33 +5,28 @@
   copyDesktopItems,
   makeDesktopItem,
   cmake,
-  qt5,
+  qt6,
 }:
 stdenv.mkDerivation rec {
   pname = "oplpctools";
-  version = "3.0";
+  version = "3.1";
 
   src = fetchFromGitHub {
     owner = "brainstream";
     repo = "OPL-PC-Tools";
-    rev = "edf4e72ffdf2d67895b682638215bd5db0b31e40";
-    sha256 = "sha256-DCdmlyzta2gmqmXjV5NuQj5BgimifBFKIU7rk1OS4pw=";
+    rev = version;
+    sha256 = "sha256-Qn7V/N2K+0BQUXj9lirZsWzTvXcxqbBOTOLYS4rmuUk=";
   };
 
-  patches = [
-    ./0001-Rename-QT5_DIR-to-Qt5_DIR.patch
-    ./0001-Fixed-segfault-when-trying-to-install-game-from-imag.patch
-  ];
-
   nativeBuildInputs = [
-    qt5.wrapQtAppsHook
+    qt6.wrapQtAppsHook
     cmake
     copyDesktopItems
-    qt5.qttools
+    qt6.qttools
   ];
   buildInputs = [
-    qt5.qtbase
-    qt5.qttranslations
+    qt6.qtbase
+    qt6.qttranslations
   ];
 
   installPhase = ''
