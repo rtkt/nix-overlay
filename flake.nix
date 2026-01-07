@@ -46,6 +46,11 @@
             "Exec=${nixpkgs.legacyPackages.${system}.coreutils}/bin/env SSH_ASKPASS=${nixpkgs.legacyPackages.${system}.kdePackages.ksshaskpass}/bin/ksshaskpass virt-manager"
           '';
       });
+      cataclysm-dda-git = prev.cataclysm-dda-git.override {
+        version = "2026-01-07";
+        rev = "1758d19400acdf712919ccc29e6e6eacae8d8e19";
+        sha256 = "sha256-GlokYB8F3igoLdOx9KUFspqZHJZUsTZy/y62MLWnpqE=";
+      };
     };
     nixosModules = {
       n8n = import ./modules/n8n;
