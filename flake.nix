@@ -38,6 +38,14 @@
         dontPatchELF = true;
         nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [nixpkgs.legacyPackages.${system}.kdePackages.wrapQtAppsHook];
       });
+      virt-manager-kde = prev.virt-manager.overrideAttrs (oldAttrs: {
+        postInstall =
+          oldAttrs.postInstall
+          + ''
+            substituteInPlace "$out/share/applications/virt-manager.desktop" --replace-fail "Exec=virt-manager" \
+            "Exec=${nixpkgs.legacyPackages.${system}.coreutils}/bin/env SSH_ASKPASS=${nixpkgs.legacyPackages.${system}.kdePackages.ksshaskpass}/bin/ksshaskpass virt-manager"
+          '';
+      });
     };
     nixosModules = {
       n8n = import ./modules/n8n;
