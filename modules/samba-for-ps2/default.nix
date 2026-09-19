@@ -10,8 +10,6 @@ with lib; let
     then boolToString x
     else toString x;
   cfg = config.services.samba-for-ps2;
-  genCommands = devices: concatStrings (forEach devices (device: "iptables -A INPUT -p tcp --destination-port ${cfg.port} -m mac --mac-source ${device} -j ACCEPT\n"));
-  samba-for-ps2 = cfg.package;
   genFilesSettings = mode: {
     d = {
       user = "root";
@@ -48,7 +46,7 @@ with lib; let
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
     };
     serviceConfig = {
-      ExecStart = "${pkgs.samba-for-ps2}/sbin/${appName} --foreground --no-process-group ${args}";
+      ExecStart = "${cfg.package}/sbin/${appName} --foreground --no-process-group ${args}";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       LimitNOFILE = 16384;
       PIDFile = "/run/${appName}.pid";
@@ -89,7 +87,7 @@ in {
         description = "Global samba config";
       };
       port = mkOption {
-        type = types.str;
+        type = types.int;
       };
       shares = mkOption {
         default = {};
@@ -127,11 +125,19 @@ in {
           };
         };
       })
-      (mkIf (cfg.openFirewall && cfg.allowedDevices == null) {
+      (mkIf (cfg.openFirewall && !cfg.restrictAccess) {
         networking.firewall.allowedTCPPorts = [cfg.port];
       })
-      (mkIf (cfg.openFirewall && cfg.allowedDevices != null) {
-        networking.firewall.extraCommands = genCommands cfg.allowedDevices;
+      (mkIf (cfg.openFirewall && cfg.restrictAccess) {
+        assertions = [
+          {
+            assertion = cfg.allowedDevices != [];
+            message = "services.samba-for-ps2: restrictAccess is enabled but allowedDevices is empty";
+          }
+        ];
+        networking.firewall.extraInputRules = ''
+          ether saddr { ${concatStringsSep ", " cfg.allowedDevices} } tcp dport ${toString cfg.port} accept
+        '';
       })
     ];
 }
