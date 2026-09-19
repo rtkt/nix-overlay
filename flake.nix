@@ -94,7 +94,6 @@
         docbook_xsl
         docbook_xml_dtd_45
         rpcsvc-proto
-        nodePackages.node-pre-gyp
       ];
     };
   };
