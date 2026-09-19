@@ -51,6 +51,15 @@
         rev = "1758d19400acdf712919ccc29e6e6eacae8d8e19";
         sha256 = "sha256-GlokYB8F3igoLdOx9KUFspqZHJZUsTZy/y62MLWnpqE=";
       };
+      libvirt-selinux = prev.libvirt.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ [nixpkgs.legacyPackages.${system}.libselinux];
+        mesonFlags =
+          old.mesonFlags
+          ++ [
+            "-Dselinux=enabled"
+            "-Dsecdriver_selinux=enabled"
+          ];
+      });
     };
     nixosModules = {
       n8n = import ./modules/n8n;
