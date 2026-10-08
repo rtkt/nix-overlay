@@ -21,30 +21,38 @@
 with lib;
   stdenv.mkDerivation (finalAttrs: {
     pname = "samba-for-ps2";
-    version = "4.20.4";
+    version = "4.23.10";
 
     src = fetchurl {
       url = "https://download.samba.org/pub/samba/stable/samba-${finalAttrs.version}.tar.gz";
-      sha256 = "sha256-OpLpfq6zRbazIjL1A+FNNPA6eqZMRR/owlihG72pCOU=";
+      sha256 = "sha256-50s/SV1+SOZxC1Aas4HIDd88uZxmBHMtNgQCZdnK9FI=";
     };
 
     outputs = ["out" "dev" "man"];
 
-    patches = [
-      ./4.x-no-persistent-install.patch
-      ./patch-source3__libads__kerberos_keytab.c.patch
-      ./4.x-no-persistent-install-dynconfig.patch
-      ./4.x-fix-makeflags-parsing.patch
-      ./build-find-pre-built-heimdal-build-tools-in-case-of-.patch
-      ./0001-Removed-messing-with-file-limits.patch
-      (fetchpatch {
-        # workaround for https://github.com/NixOS/nixpkgs/issues/303436
-        name = "samba-reproducible-builds.patch";
-        url = "https://gitlab.com/raboof/samba/-/commit/9995c5c234ece6888544cdbe6578d47e83dea0b5.patch";
-        hash = "sha256-TVKK/7wGsfP1pVf8o1NwazobiR8jVJCCMj/FWji3f2A=";
-      })
-    ];
-
+  patches = [
+    ./4.x-no-persistent-install.patch
+    ./4.x-no-persistent-install-dynconfig.patch
+    ./4.x-fix-systemd-detection.patch
+    (fetchpatch {
+      # workaround for https://bugzilla.samba.org/show_bug.cgi?id=14164
+      name = "build-find-pre-built-heimdal-build-tools-in-case-of-.patch";
+      url = "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/fe5538114371b98c7350e6fffbfc0d1ac063719c/packages/network/samba/patches/samba-200-4.11-fix-ASN1-bso14164.patch";
+      hash = "sha256-0/c9TH5FZ4S1OoM04gwDBJoIN+10unjLSv7Hlwt9FEQ=";
+    })
+    (fetchpatch {
+      # workaround for https://github.com/NixOS/nixpkgs/issues/303436
+      name = "samba-reproducible-builds.patch";
+      url = "https://gitlab.com/raboof/samba/-/commit/9995c5c234ece6888544cdbe6578d47e83dea0b5.patch";
+      hash = "sha256-TVKK/7wGsfP1pVf8o1NwazobiR8jVJCCMj/FWji3f2A=";
+    })
+    (fetchpatch {
+      name = "cross-compile.patch";
+      url = "https://gitlab.com/samba-team/samba/-/merge_requests/3990/diffs.patch?commit_id=52af20db81f24cbfaa6fef8233584fc40fc72d34";
+      hash = "sha256-GMPxM6KMtMPRljhRI+dDD2fOp+y5kpRqbjqkj19Du4Q=";
+    })
+  ];
+  
     nativeBuildInputs = [
       python3Packages.python
       wafHook
@@ -126,6 +134,7 @@ with lib;
       "--without-fam"
       "--without-lttng"
       "--without-json"
+      "--without-ldb-lmdb"
       "--with-smb1-server"
     ];
 
