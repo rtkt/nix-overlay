@@ -57,6 +57,10 @@
           #   ./cdda.patch
           # ];
         };
+      libvirt-selinux = prev.libvirt.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ [nixpkgs.legacyPackages.${system}.libselinux];
+        mesonFlags = old.mesonFlags ++ ["-Dselinux=enabled" "-Dsecdriver_selinux=enabled"];
+      });
     };
     nixosModules = {
       n8n = import ./modules/n8n;
