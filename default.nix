@@ -5,6 +5,7 @@
   n8n = pkgs.callPackage ./pkgs/n8n {};
   oplpctools = pkgs.callPackage ./pkgs/oplpctools {};
   nginx-dns = pkgs.callPackage ./pkgs/nginx-dns {};
+  hpwnr = pkgs.callPackage ./pkgs/hpwnr {};
   cutelee = pkgs.callPackage ./pkgs/cutelee {};
   cutelyst = pkgs.callPackage ./pkgs/cutelyst {inherit cutelee;};
   virtlyst = pkgs.callPackage ./pkgs/virtlyst {
