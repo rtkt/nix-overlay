@@ -69,6 +69,7 @@
       sshguard-custom = import ./modules/sshguard-custom;
       nginx-dns = import ./modules/nginx-dns;
       virtlyst = import ./modules/virtlyst;
+      hirovpn-updater = import ./modules/hirovpn-updater;
     };
 
     packages.${system} = import ./default.nix {
