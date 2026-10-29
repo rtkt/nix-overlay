@@ -1,0 +1,44 @@
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -86,2 +86,2 @@
+-If the server response is more than 15000 characters, it is saved to hpwnresp_<domain>.txt, overwritten each run; otherwise it is printed.
+-Converting a file writes a copy: <name>_<mode>.<ext> where <mode> is sb, uri, b64, or sb+uri, replacing any existing suffix.
++Fetched and converted results are always written to stdout, regardless of size.
++Use shell redirection (> filename) to save output.
+@@ -149 +149 @@
+-Converting a file writes a copy: <name>_<mode>.<ext> where <mode> is sb, uri, b64, or sb+uri, replacing any existing suffix.
++Converting a file writes the result to stdout; use > filename to save it.
+@@ -499,10 +499,2 @@
+-                // Large results go to one file per domain (overwritten each run); smaller ones print.
+-                const MAX_INLINE: usize = 15000;
+-                if output.len() > MAX_INLINE {
+-                    let fname = fetch_file_name(&target);
+-                    if let Err(e) = std::fs::write(&fname, &output) {
+-                        eprintln!("error: could not write file: {e}");
+-                        return 1;
+-                    }
+-                    eprintln!("saved to: {fname}");
+-                } else if let Err(e) = print_body(&output) {
++                // Always write to stdout; callers can redirect to a file.
++                if let Err(e) = print_body(&output) {
+@@ -541,17 +533,3 @@
+-                match mode {
+-                    // raw only displays the file, so print it instead of writing a copy
+-                    ConvertMode::Raw => {
+-                        if let Err(e) = print_body(&output) {
+-                            eprintln!("error: {e}");
+-                            return 1;
+-                        }
+-                    }
+-                    // a real conversion writes a suffixed copy next to the input file
+-                    ConvertMode::Ops(ops) => {
+-                        let out = convert_file_name(&path, *ops);
+-                        if let Err(e) = std::fs::write(&out, &output) {
+-                            eprintln!("error: could not write file: {e}");
+-                            return 1;
+-                        }
+-                        eprintln!("saved to: {out}");
+-                    }
++                if let Err(e) = print_body(&output) {
++                    eprintln!("error: {e}");
++                    return 1;

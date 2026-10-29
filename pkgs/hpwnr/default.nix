@@ -16,6 +16,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-G6hpMQAUcZRWSMuMOr1V9eOvMmIeo7evykh3kRTT2sY=";
 
+  patches = [
+    ./force-stdout.patch
+  ];
+
   meta = {
     description = "CLI for fetching and converting Happ and v2RayTun proxy profiles";
     homepage = "https://github.com/Omegaplexx/hpwnr";
